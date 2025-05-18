@@ -10,7 +10,7 @@ import java.time.LocalDateTime
  * @property startDateTime
  * @property endDateTime
  * @property memo
- * @property distanceWalked m단위
+ * @property distanceWalked 하루 거리 (단위: m)
  * @constructor Create empty History data model
  */
 
