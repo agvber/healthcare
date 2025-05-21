@@ -46,4 +46,19 @@ object HealthUtil {
             else -> TreeGrowthStage.SPROUT
         }
     }
+
+    /**
+     * 수명 연장 시간 계산
+     * 1km 5분 수명 연장
+     *
+     * @param totalDistance 총 누적 거리 (단위: m)
+     * @return Pair<시, 분>
+     */
+    fun calculateLifeExtension(totalDistance: Long): Pair<Int, Int> {
+        val totalMinutes = (totalDistance / 1000) * 5  // 1km = 5분
+        val hours = (totalMinutes / 60).toInt()
+        val minutes = (totalMinutes % 60).toInt()
+        return Pair(hours, minutes)
+    }
+
 }
