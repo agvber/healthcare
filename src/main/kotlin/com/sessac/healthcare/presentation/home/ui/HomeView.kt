@@ -35,37 +35,16 @@ class HomeView {
     }
 
     fun printTreeStatus(model: HomeUIModel) {
-        val tree = when(model.tree) {
-            TreeGrowthStage.FULL_TREE -> """
-            *
-           ***
-          *****
-         *******
-        *********
-       ***********
-            |
-        """.trimIndent()
-
-            TreeGrowthStage.MATURE_TREE -> """
-           *
-          ***
-         *****
-        *******
-           |
-        """.trimIndent()
-
-            TreeGrowthStage.SAPLING -> """
-          *
-         ***
-          |
-        """.trimIndent()
-
-            TreeGrowthStage.SPROUT -> """
-           *
-           |
-        """.trimIndent()
-        }
-        println(tree)
+//        val tree = when(model.tree) {
+//            TreeGrowthStage.FULL_TREE -> model.tree.tree
+//
+//            TreeGrowthStage.MATURE_TREE -> model.tree.tree
+//
+//            TreeGrowthStage.SAPLING -> model.tree.tree
+//
+//            TreeGrowthStage.SPROUT -> model.tree.tree
+//        }
+        println(model.tree.tree)
         println()
     }
 
