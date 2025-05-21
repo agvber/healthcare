@@ -4,6 +4,7 @@ import com.sessac.healthcare.data.model.HistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateBMI
+import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateLifeExtension
 import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateTotalGoalDistance
 import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateTreeGrowthStage
 
@@ -13,11 +14,11 @@ object HomeUIMapper {
         user: UserDataModel,
         histories: List<HistoryDataModel>,
     ): HomeUIModel {
-        val userHistories = histories.filter { it.userId == user.id }
-        val totalDistance = userHistories.sumOf { it.distanceWalked }
+        val totalDistance = histories.sumOf { it.distanceWalked }
         val bmi = calculateBMI(user.height, user.weight)
         val defaultDistance = calculateTotalGoalDistance(user.height, user.weight)
         val tree = calculateTreeGrowthStage(totalDistance, user.goalDistance)
+        val lifeExtension = calculateLifeExtension(totalDistance)
 
         return HomeUIModel(
             id = user.id,
@@ -29,7 +30,8 @@ object HomeUIMapper {
             userTotalDistance = totalDistance,
             height = user.height,
             weight = user.weight,
-            tree = tree
+            tree = tree,
+            lifeExtension = lifeExtension
         )
     }
 
@@ -58,6 +60,7 @@ object HomeUIMapper {
         val bmi = calculateBMI(height, weight)
         val defaultGoalDistance = calculateTotalGoalDistance(height, weight)
         val tree = calculateTreeGrowthStage(totalDistance, goalDistance)
+        val lifeExtension = calculateLifeExtension(totalDistance)
 
         return HomeUIModel(
             id = userId,
@@ -69,7 +72,8 @@ object HomeUIMapper {
             userTotalDistance = totalDistance,
             height = height,
             weight = weight,
-            tree = tree
+            tree = tree,
+            lifeExtension = lifeExtension
         )
     }
 }
