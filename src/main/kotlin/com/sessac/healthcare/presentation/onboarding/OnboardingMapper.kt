@@ -8,8 +8,8 @@ class OnboardingMapper {
             id = splitUserInfo[0].trim(),
             password = splitUserInfo[1].trim(),
             nickname = splitUserInfo[2].trim(),
-            height = splitUserInfo[3].trim().toInt(),
-            weight = splitUserInfo[4].trim().toInt(),
+            height = splitUserInfo[3].trim().toFloat(),
+            weight = splitUserInfo[4].trim().toFloat(),
         )
     }
 }
