@@ -13,5 +13,7 @@ interface HistoryDataSource {
         endDate: LocalDate,
     ): List<HistoryDataModel>
 
+    fun getLastId(): Long
+
     fun setUserHistory(historyDataModel: HistoryDataModel)
 }
