@@ -36,6 +36,10 @@ class GetTotalWalkedDistanceUseCaseUnitTest {
                     TODO("Not yet implemented")
                 }
 
+                override fun getLastId(): Long {
+                    TODO("Not yet implemented")
+                }
+
                 override fun setUserHistory(historyDataModel: HistoryDataModel) {
                     TODO("Not yet implemented")
                 }
