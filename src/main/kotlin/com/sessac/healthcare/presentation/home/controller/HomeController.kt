@@ -8,8 +8,8 @@ import com.sessac.healthcare.presentation.home.ui.HomeView
 
 class HomeController(
     private val user: UserDataModel,
-    private val histories: List<HistoryDataModel>,
-    private val menuListener: HomeMenuListener
+    private val histories: List<HistoryDataModel>
+//    private val menuListener: HomeMenuListener
 ) {
     private lateinit var homeUIModel: HomeUIModel
 
@@ -20,14 +20,25 @@ class HomeController(
         HomeView.displayDistanceInfo(homeUIModel)
 
         when (val menu = HomeView.displayMenu().trim()) {
-            "1" -> menuListener.onSelectRecord()
-            "2" -> menuListener.onSelectGoal()
-            "3" -> menuListener.onSelectUserInfo()
+            "1" -> TODO()
+            "2" -> TODO()
+            "3" -> TODO()
             "exit" -> {
-                menuListener.onExit()
-                return
+                TODO()
+                System.exit(0)
             }
-            else -> menuListener.onInvalidInput()
+            else -> TODO()
         }
+//
+//        when (val menu = HomeView.displayMenu().trim()) {
+//            "1" -> menuListener.onSelectRecord()
+//            "2" -> menuListener.onSelectGoal()
+//            "3" -> menuListener.onSelectUserInfo()
+//            "exit" -> {
+//                menuListener.onExit()
+//                return
+//            }
+//            else -> menuListener.onInvalidInput()
+//        }
     }
 }

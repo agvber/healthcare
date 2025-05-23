@@ -21,8 +21,8 @@ class OnboardingMapperUnitTest {
             id = "id",
             password = "pw",
             nickname = "nick",
-            height = 150,
-            weight = 10
+            height = 150f,
+            weight = 10f
         )
         JUnit5Asserter.assertTrue(null, expectData == result)
     }
