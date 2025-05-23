@@ -19,6 +19,6 @@ data class HistoryDataModel(
     val userId: Long,
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
+    val distanceWalked: Long,
     val memo: String,
-    val distanceWalked: Long
 )

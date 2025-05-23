@@ -20,8 +20,15 @@ object HistoryDataSourceImpl : HistoryDataSource {
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<HistoryDataModel> {
-        TODO("각자 구현 할것")
+        return dummyHistoryModels.filter { history ->
+            history.userId == userId &&
+                    history.startDateTime.toLocalDate() >= startDate &&
+                    history.startDateTime.toLocalDate() <= endDate
+        }
+
     }
+
+    override fun getLastId() = dummyHistoryModels.last().id
 
     override fun setUserHistory(historyDataModel: HistoryDataModel) {
         dummyHistoryModels.add(historyDataModel)
