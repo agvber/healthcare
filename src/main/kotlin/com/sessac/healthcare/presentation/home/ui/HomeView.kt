@@ -59,9 +59,15 @@ object HomeView {
 
     fun displayMenu(): String{
         println("==================================")
-        println("1. 기록 화면")
-        println("2. 목표 화면")
-        println("3. 내 정보")
+//        println("1. 기록 화면")
+//        println("2. 목표 화면")
+//        println("3. 내 정보")
+        println("1. 온보딩 화면")
+        println("2. 로그인 화면")
+        println("3. 기록 화면")
+        println("4. 내 정보 화면")
+        println("5. 리포트 화면")
+        println("6. 목표 화면")
         println("exit. 프로그램 종료")
         println("==================================")
         print("선택 >> ")
