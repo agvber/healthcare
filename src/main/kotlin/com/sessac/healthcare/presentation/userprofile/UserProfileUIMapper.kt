@@ -23,10 +23,10 @@ object UserProfileUIMapper {
         val userFields = csvUser.split(",").map { it.trim() }
         require(userFields.size == 5) { "유저 필드 정보가 잘못 되었습니다." }
 
-        val userId = userFields[0].toLong()
+        val userId = userFields[0]
         val nickname = userFields[1]
-        val height = userFields[2].toInt()
-        val weight = userFields[3].toInt()
+        val height = userFields[2].toFloat()
+        val weight = userFields[3].toFloat()
 
         return UserProfileUIModel(
             id = userId,
@@ -46,6 +46,10 @@ object UserProfileUIMapper {
         nickname = uiModel.nickName,
         height = uiModel.height,
         weight = uiModel.weight,
-        goalDistance = dataModel.goalDistance
+        goalDistance = dataModel.goalDistance,
+        pk = TODO(),
+        password = TODO(),
+        dailyGoalDistance = TODO(),
+        weeklyGoalDistance = TODO()
     )
 }

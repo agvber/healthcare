@@ -50,7 +50,7 @@ class UserProfileController(
         editField(
             fieldName = "키",
             inputTransform = { input ->
-                if (input.isNotEmpty()) input.toIntOrNull() else null
+                if (input.isNotEmpty()) input.toFloatOrNull() else null
             }
         ) { newValue ->
             userProfileUIModel.height = newValue
@@ -61,7 +61,7 @@ class UserProfileController(
         editField(
             fieldName = "체중",
             inputTransform = { input ->
-                if (input.isNotEmpty()) input.toIntOrNull() else null
+                if (input.isNotEmpty()) input.toFloatOrNull() else null
             }
         ) { newValue ->
             userProfileUIModel.weight = newValue
