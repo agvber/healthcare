@@ -9,15 +9,15 @@ package com.sessac.healthcare.presentation.home.model
  * @property lifeExtension 수명 연장
  */
 data class HomeUIModel(
-    val id: Long,
+    val id: String,
     var nickName: String,
     var bmi: Float,
     var defaultGoalDistance: Long,
     var userGoalDistance: Long,
     var userDailyDistance: Long,
     var userTotalDistance: Long,
-    var height: Int,
-    var weight: Int,
+    var height: Float,
+    var weight: Float,
     var tree: TreeGrowthStage = TreeGrowthStage.SPROUT,
     var lifeExtension: Pair<Int, Int> = Pair(0,0)
 )

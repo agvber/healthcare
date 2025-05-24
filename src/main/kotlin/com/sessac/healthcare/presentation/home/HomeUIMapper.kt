@@ -46,15 +46,15 @@ object HomeUIMapper {
         val userFields = csvUser.split(",").map { it.trim() }
         require(userFields.size == 5) { "유저 필드 정보가 잘못 되었습니다." }
 
-        val userId = userFields[0].toLong()
+        val userId = userFields[0]
         val nickname = userFields[1]
-        val height = userFields[2].toInt()
-        val weight = userFields[3].toInt()
+        val height = userFields[2].toFloat()
+        val weight = userFields[3].toFloat()
         val goalDistance = userFields[4].toLong()
 
         val totalDistance = csvHistories
             .map { it.split(",").map(String::trim) }
-            .filter { it[1].toLong() == userId }
+            .filter { it[1] == userId }
             .sumOf { it[5].toLong() }
 
         val bmi = calculateBMI(height, weight)

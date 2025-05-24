@@ -19,7 +19,7 @@ class HomeControllerTest {
 
     @Test
     fun `홈`(){
-        user = UserDataSourceImpl.getUserById(1)
+        user = UserDataSourceImpl.getUserById("1")
         histories = HistoryDataSourceImpl.getUserHistories(user.id)
 
         controller = HomeController(user, histories)
