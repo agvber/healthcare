@@ -7,23 +7,23 @@ package com.sessac.healthcare.presentation.home.model
  * @property FULL_TREE 완전한 4단계
  */
 
-enum class TreeGrowthStage(val tree:String) {
+enum class TreeGrowthStage(val tree:String, val stage: String) {
     SPROUT("""
            *
            |
-        """.trimIndent()),
+        """.trimIndent(), "새싹"),
     SAPLING("""
           *
          ***
           |
-        """.trimIndent()),
+        """.trimIndent(), "어린 나무"),
     MATURE_TREE("""
            *
           ***
          *****
         *******
            |
-        """.trimIndent()),
+        """.trimIndent(), "성숙한 나무"),
     FULL_TREE("""
             *
            ***
@@ -32,5 +32,5 @@ enum class TreeGrowthStage(val tree:String) {
         *********
        ***********
             |
-        """.trimIndent())
+        """.trimIndent(), "세계수")
 }
