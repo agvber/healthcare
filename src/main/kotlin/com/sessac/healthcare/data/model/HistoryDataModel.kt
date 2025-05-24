@@ -15,8 +15,8 @@ import java.time.LocalDateTime
  */
 
 data class HistoryDataModel(
-    val id: Long,
-    val userId: Long,
+    val pk: Long,
+    val userId: String,
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
     val distanceWalked: Long,
