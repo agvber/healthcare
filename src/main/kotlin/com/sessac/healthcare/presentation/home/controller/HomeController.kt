@@ -26,13 +26,13 @@ class HomeController(
         HomeView.displayUserInfo(homeUIModel)
         HomeView.displayDistanceInfo(homeUIModel)
 
-        when (val menu = HomeView.displayMenu().trim()) { // 1. 온보딩 2. 로그인 3. 기록 4. 내 정보 5. 리포트
+        when (val menu = HomeView.displayMenu().trim()) { // 1. 온보딩 2. 로그인 3. 기록 4. 내 정보 5. 리포트 6. 목표
             "1" -> OnboardingController().run()
             "2" -> LoginController().run()
             "3" -> RecordController(user).run()
             "4" -> UserProfileController(user).launchUserProfile()
             "5" -> ReportController().run()
-            "6" -> GoalController().run()
+            "6" -> GoalController(user, histories).run()
             "exit" -> exitProcess(0)
             else -> TODO("잘못 입력하셨습니다.")
         }
