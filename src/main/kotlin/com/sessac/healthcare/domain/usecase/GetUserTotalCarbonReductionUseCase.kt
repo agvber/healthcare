@@ -9,7 +9,7 @@ class GetUserTotalCarbonReductionUseCase(
     private val reportEntity: ReportEntity = ReportEntity()
 ) {
     operator fun invoke(): Double {
-        val userHistories = historyDataSource.getUserHistories(0) // 내 정보 가져오기
+        val userHistories = historyDataSource.getUserHistories("") // 내 정보 가져오기
         val totalDistanceWalked = userHistories.sumOf { it.distanceWalked }
         return reportEntity.calculateCarbonReduction(totalDistanceWalked)
     }

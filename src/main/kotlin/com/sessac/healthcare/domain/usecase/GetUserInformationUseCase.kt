@@ -10,7 +10,7 @@ class GetUserInformationUseCase(
     private val reportEntity: ReportEntity = ReportEntity()
 ) {
     operator fun invoke(): UserDomainModel {
-        val userDataModel = userDataSource.getUserById(0)
+        val userDataModel = userDataSource.getUserById("0")
         val weight = userDataModel.weight.toFloat()
         val height = userDataModel.height.toFloat()
 

@@ -7,7 +7,7 @@ class GetTotalWalkedDistanceUseCase(
     private val historyDataSource: HistoryDataSource = HistoryDataSourceImpl
 ) {
     operator fun invoke(): Long {
-        val histories = historyDataSource.getUserHistories(0) // 유저 정보 가져오기
+        val histories = historyDataSource.getUserHistories("0") // 유저 정보 가져오기
         return histories.sumOf { it.distanceWalked }
     }
 }

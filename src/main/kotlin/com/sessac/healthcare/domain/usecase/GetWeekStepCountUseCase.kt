@@ -11,7 +11,7 @@ class GetWeekStepCountUseCase(
         val now: LocalDateTime = LocalDateTime.now()
         val minusOnWeekDateTime = now.minusWeeks(1)
 
-        return historyDataSource.getUserHistories(1)
+        return historyDataSource.getUserHistories("1")
             .filter { it.endDateTime >= minusOnWeekDateTime }
             .sumOf { it.distanceWalked }
     }
