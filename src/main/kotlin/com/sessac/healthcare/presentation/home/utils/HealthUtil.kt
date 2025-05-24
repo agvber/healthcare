@@ -9,7 +9,7 @@ object HealthUtil {
      *
      * @return 체중 / 키(m)^2
      */
-    fun calculateBMI(heightCm: Int, weightKg: Int): Float {
+    fun calculateBMI(heightCm: Float, weightKg: Float): Float {
         val heightMeter = heightCm / 100.0
         return (weightKg / (heightMeter * heightMeter)).toFloat()
     }
@@ -19,7 +19,7 @@ object HealthUtil {
      * bmi 계산 없이 바로 사용 가능
      * @return 저체중: 100km 정상: 150km 과체중: 200km 비만: 250km
      */
-    fun calculateTotalGoalDistance(heightCm: Int, weightKg: Int): Long {
+    fun calculateTotalGoalDistance(heightCm: Float, weightKg: Float): Long {
         val bmi = calculateBMI(heightCm, weightKg)
 
         return when {
