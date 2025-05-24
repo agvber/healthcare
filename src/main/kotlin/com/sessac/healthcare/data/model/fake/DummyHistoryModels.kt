@@ -8,7 +8,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
         return listOf(
             HistoryDataModel(
                 1,
-                101,
+                "hong123",
                 LocalDateTime.now().minusDays(1),
                 LocalDateTime.now().minusDays(1).plusHours(1),
                 2000,
@@ -16,7 +16,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 2,
-                102,
+                "102",
                 LocalDateTime.now().minusDays(2),
                 LocalDateTime.now().minusDays(2).plusMinutes(45),
                 5000,
@@ -24,7 +24,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 3,
-                103,
+                "103",
                 LocalDateTime.now().minusDays(3),
                 LocalDateTime.now().minusDays(3).plusHours(2),
                 3000,
@@ -32,7 +32,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 4,
-                104,
+                "104",
                 LocalDateTime.now().minusDays(4),
                 LocalDateTime.now().minusDays(4).plusMinutes(30),
                 1000,
@@ -40,7 +40,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 5,
-                105,
+                "105",
                 LocalDateTime.now().minusDays(5),
                 LocalDateTime.now().minusDays(5).plusHours(1),
                 4000,
@@ -48,7 +48,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 6,
-                106,
+                "106",
                 LocalDateTime.now().minusDays(6),
                 LocalDateTime.now().minusDays(6).plusMinutes(40),
                 6000,
@@ -56,7 +56,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 7,
-                107,
+                "107",
                 LocalDateTime.now().minusDays(7),
                 LocalDateTime.now().minusDays(7).plusMinutes(25),
                 3000,
@@ -64,7 +64,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 8,
-                108,
+                "108",
                 LocalDateTime.now().minusDays(8),
                 LocalDateTime.now().minusDays(8).plusHours(1),
                 7000,
@@ -72,7 +72,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 9,
-                109,
+                "109",
                 LocalDateTime.now().minusDays(9),
                 LocalDateTime.now().minusDays(9).plusMinutes(50),
                 2000,
@@ -80,7 +80,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 10,
-                110,
+                "110",
                 LocalDateTime.now().minusDays(10),
                 LocalDateTime.now().minusDays(10).plusMinutes(35),
                 4000,
@@ -88,7 +88,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 11,
-                111,
+                "111",
                 LocalDateTime.now().minusDays(11),
                 LocalDateTime.now().minusDays(11).plusMinutes(45),
                 8000,
@@ -96,7 +96,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 12,
-                112,
+                "112",
                 LocalDateTime.now().minusDays(12),
                 LocalDateTime.now().minusDays(12).plusHours(1),
                 6000,
@@ -104,7 +104,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 13,
-                113,
+                "113",
                 LocalDateTime.now().minusDays(13),
                 LocalDateTime.now().minusDays(13).plusMinutes(30),
                 1500,
@@ -112,7 +112,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 14,
-                114,
+                "114",
                 LocalDateTime.now().minusDays(14),
                 LocalDateTime.now().minusDays(14).plusMinutes(20),
                 2000,
@@ -120,7 +120,7 @@ class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
             ),
             HistoryDataModel(
                 15,
-                115,
+                "115",
                 LocalDateTime.now().minusDays(15),
                 LocalDateTime.now().minusDays(15).plusMinutes(50),
                 3000,
