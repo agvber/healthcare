@@ -1,13 +1,12 @@
 package com.sessac.healthcare.presentation.record
 
-import com.sessac.healthcare.data.datasource.HistoryDataSource
+import com.sessac.healthcare.data.datasource.impl.HistoryDataSourceImpl
 import com.sessac.healthcare.data.model.HistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.common.ViewController
 
 class RecordController(
-    private val user: UserDataModel,
-    private val historyDataSource: HistoryDataSource,
+    private val user: UserDataModel
 ) : ViewController {
 
     private lateinit var recordView: RecordView
@@ -23,7 +22,7 @@ class RecordController(
 
     private fun showUserRecords() {
         recordView.printRecordDefaultMessage()
-        userRecords = historyDataSource.getUserHistories(user.id)
+        userRecords = HistoryDataSourceImpl.getUserHistories(user.id)
         val presentationModels = userRecords.map {
             recordMapper.historyDataModelToPresentation(it)
         }
@@ -41,11 +40,11 @@ class RecordController(
     private fun handleRecordInsertion() {
         try {
             val userInput = recordView.inputRecord()
-            val lastId = historyDataSource.getLastId()
-            val newRecord = recordMapper.stringToHistoryDataModel(userInput, user.id, lastId)
+            val lastPk = HistoryDataSourceImpl.getLastPk()
+            val newRecord = recordMapper.stringToHistoryDataModel(userInput, user.id, lastPk)
 
-            historyDataSource.setUserHistory(newRecord)
-            println("${historyDataSource.getUserHistories(user.id).last()}") // 임시 확인용
+            HistoryDataSourceImpl.setUserHistory(newRecord)
+            println("${HistoryDataSourceImpl.getUserHistories(user.id).last()}") // 임시 확인용
             recordView.printRecordSuccessMessage()
             showUserRecords() // 업데이트된 기록 표시
         } catch (e: Exception) {
