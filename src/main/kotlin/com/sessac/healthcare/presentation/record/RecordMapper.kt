@@ -20,13 +20,13 @@ class RecordMapper {
             memo = history.memo
         )
     }
-        fun stringToHistoryDataModel(value: String, userId: Long, lastId: Long): HistoryDataModel {
+        fun stringToHistoryDataModel(value: String, userId: String, lastPk: Long): HistoryDataModel {
         val record = value.split(",")
         return HistoryDataModel(
             userId = userId,
             startDateTime = record[0].trim().toLocalDateTime(),
             endDateTime = record[1].trim().toLocalDateTime(),
-            id = lastId + 1,
+            pk = lastPk + 1,
             distanceWalked = record[2].trim().toLong(),
             memo = record[3].trim()
         )
