@@ -8,5 +8,5 @@ interface UserDataSource {
 
     fun setUser(userDataModel: UserDataModel)
 
-    fun getUserById(id: Long): UserDataModel
+    fun getUserById(id: String): UserDataModel
 }

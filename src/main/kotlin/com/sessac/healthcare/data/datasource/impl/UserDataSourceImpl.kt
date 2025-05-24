@@ -16,7 +16,7 @@ object UserDataSourceImpl : UserDataSource {
         dummyUsers.add(userDataModel)
     }
 
-    override fun getUserById(id: Long): UserDataModel {
+    override fun getUserById(id: String): UserDataModel {
         return dummyUsers.first { it.id == id }
     }
 }

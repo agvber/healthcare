@@ -5,15 +5,15 @@ import java.time.LocalDate
 
 interface HistoryDataSource {
 
-    fun getUserHistories(userId: Long): List<HistoryDataModel>
+    fun getUserHistories(userId: String): List<HistoryDataModel>
 
     fun getUserHistoriesByPeriod(
-        userId: Long,
+        userId: String,
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<HistoryDataModel>
 
-    fun getLastId(): Long
+    fun getLastPk(): Long
 
     fun setUserHistory(historyDataModel: HistoryDataModel)
 }

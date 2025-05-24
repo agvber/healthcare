@@ -9,14 +9,14 @@ object HistoryDataSourceImpl : HistoryDataSource {
 
     private val dummyHistoryModels: MutableList<HistoryDataModel> = DummyHistoryModels().get().toMutableList()
 
-    override fun getUserHistories(userId: Long): List<HistoryDataModel> {
+    override fun getUserHistories(userId: String): List<HistoryDataModel> {
         return dummyHistoryModels.filter {
             it.userId == userId
         }
     }
 
     override fun getUserHistoriesByPeriod(
-        userId: Long,
+        userId: String,
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<HistoryDataModel> {
@@ -28,7 +28,7 @@ object HistoryDataSourceImpl : HistoryDataSource {
 
     }
 
-    override fun getLastId() = dummyHistoryModels.last().id
+    override fun getLastPk() = dummyHistoryModels.last().pk
 
     override fun setUserHistory(historyDataModel: HistoryDataModel) {
         dummyHistoryModels.add(historyDataModel)
