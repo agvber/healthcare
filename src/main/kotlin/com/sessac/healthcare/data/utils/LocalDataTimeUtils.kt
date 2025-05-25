@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 
-val fileDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.KOREA)
+val fileDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss", Locale.KOREA)
 
 fun String.toLocalDateTime(): LocalDateTime {
     val formatter = DateTimeFormatterBuilder()
