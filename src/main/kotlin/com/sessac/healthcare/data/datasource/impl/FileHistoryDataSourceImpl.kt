@@ -56,6 +56,10 @@ class FileHistoryDataSourceImpl(
         TODO("어짜피 파일을 모두 읽어야할 것 같은데 해당 함수가 필요할까?")
     }
 
+    override fun getLastId(): Long {
+        TODO("Not yet implemented")
+    }
+
     override fun setUserHistory(historyDataModel: HistoryDataModel) {
         val historyStringModel = fileParsingUtil.formatString(historyDataModel)
         file.appendText("${historyStringModel}\n")
