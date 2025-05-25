@@ -26,9 +26,9 @@ data class UserDataModel(
     val nickname: String,
     val height: Float,
     val weight: Float,
-    val goalDistance: Long,
+    var goalDistance: Long,
     val id: String,
     val password: String,
-    val dailyGoalDistance: Long,
-    val weeklyGoalDistance: Long,
+    var dailyGoalDistance: Long,
+    var weeklyGoalDistance: Long,
 )
