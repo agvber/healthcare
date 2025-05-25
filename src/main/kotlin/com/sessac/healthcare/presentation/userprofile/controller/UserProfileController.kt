@@ -81,6 +81,7 @@ class UserProfileController(
         applyChange: (T) -> Unit,
     ) {
         UserProfileView.inputNewValue(fieldName)
+            .trim()
             .let(inputTransform)
             ?.also { applyChange(it) }
             ?.let { UserProfileView.displayUpdateSuccess(fieldName) }
