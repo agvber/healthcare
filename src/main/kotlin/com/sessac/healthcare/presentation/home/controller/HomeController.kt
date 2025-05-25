@@ -1,35 +1,50 @@
 package com.sessac.healthcare.presentation.home.controller
 
+import com.sessac.healthcare.data.datasource.impl.HistoryDataSourceImpl
 import com.sessac.healthcare.data.model.HistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.home.HomeUIMapper
+import com.sessac.healthcare.presentation.home.model.HomeCalculatedData
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 import com.sessac.healthcare.presentation.home.ui.HomeView
+import com.sessac.healthcare.presentation.home.utils.DistanceCalculatorUtil
+import com.sessac.healthcare.presentation.home.utils.HealthUtil
+import com.sessac.healthcare.presentation.login.LoginController
+import com.sessac.healthcare.presentation.onboarding.OnboardingController
+import com.sessac.healthcare.presentation.record.RecordController
+import com.sessac.healthcare.presentation.report.ReportController
+import com.sessac.healthcare.presentation.userprofile.controller.UserProfileController
+import kotlin.system.exitProcess
 
 class HomeController(
     private val user: UserDataModel,
-    private val histories: List<HistoryDataModel>
+    private val histories: List<HistoryDataModel>,
 //    private val menuListener: HomeMenuListener
-) {
+) : ViewController {
     private lateinit var homeUIModel: HomeUIModel
 
+    override fun run() {
+        launchHome()
+    }
+
     fun launchHome() {
-        homeUIModel = HomeUIMapper.mapToHomeUIModel(user, histories)
+
+        homeUIModel = HomeUIMapper.mapToHomeUIModel(user, calculateHomeData())
         HomeView.displayHomeHeader()
         HomeView.displayUserInfo(homeUIModel)
         HomeView.displayDistanceInfo(homeUIModel)
 
-        when (val menu = HomeView.displayMenu().trim()) {
-            "1" -> TODO()
-            "2" -> TODO()
-            "3" -> TODO()
-            "exit" -> {
-                TODO()
-                System.exit(0)
-            }
-            else -> TODO()
+        when (val menu = HomeView.testMenu().trim()) {
+            "1" -> OnboardingController().run()
+            "2" -> LoginController().run()
+            "3" -> RecordController(user, HistoryDataSourceImpl).run()
+            "4" -> UserProfileController(user).launchUserProfile()
+            "5" -> ReportController().run()
+            "exit" -> exitProcess(0)
+            else -> println("메뉴 선택을 제대로 입력하세요.")
         }
-//
+
 //        when (val menu = HomeView.displayMenu().trim()) {
 //            "1" -> menuListener.onSelectRecord()
 //            "2" -> menuListener.onSelectGoal()
@@ -40,5 +55,24 @@ class HomeController(
 //            }
 //            else -> menuListener.onInvalidInput()
 //        }
+    }
+
+    private fun calculateHomeData(): HomeCalculatedData {
+        val bmi = HealthUtil.calculateBMI(user.height, user.weight)
+        val defaultGoalDistance = DistanceCalculatorUtil.calculateTotalGoalDistance(user.height, user.weight)
+        val userWeeklyTotalDistance = DistanceCalculatorUtil.calculateWeeklyTotalDistance(histories)
+        val userDailyTotalDistance = DistanceCalculatorUtil.calculateDailyTotalDistance(histories)
+        val userTotalDistance = DistanceCalculatorUtil.calculateTotalDistance(histories)
+        val lifeExtension = HealthUtil.calculateLifeExtension(userTotalDistance)
+
+        return HomeCalculatedData(
+            bmi = bmi,
+            defaultGoalDistance = defaultGoalDistance,
+            userWeeklyTotalDistance = userWeeklyTotalDistance,
+            userDailyTotalDistance = userDailyTotalDistance,
+            lifeExtension = lifeExtension,
+            userTotalDistance = userTotalDistance
+        )
+
     }
 }
