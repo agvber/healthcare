@@ -11,7 +11,7 @@ object HomeUIMapper {
         calculated: HomeCalculatedData
 
         ) = HomeUIModel(
-        id = user.id,
+        id = user.pk,
         nickName = user.nickname,
         bmi = calculated.bmi,
         defaultGoalDistance = calculated.defaultGoalDistance,
