@@ -23,7 +23,7 @@ class RecordController(
 
     private fun showUserRecords() {
         recordView.printRecordDefaultMessage()
-        userRecords = historyDataSource.getUserHistories(user.id)
+        userRecords = historyDataSource.getUserHistories(user.pk)
         val presentationModels = userRecords.map {
             recordMapper.historyDataModelToPresentation(it)
         }
@@ -42,10 +42,10 @@ class RecordController(
         try {
             val userInput = recordView.inputRecord()
             val lastId = historyDataSource.getLastId()
-            val newRecord = recordMapper.stringToHistoryDataModel(userInput, user.id, lastId)
+            val newRecord = recordMapper.stringToHistoryDataModel(userInput, user.pk, lastId)
 
             historyDataSource.setUserHistory(newRecord)
-            println("${historyDataSource.getUserHistories(user.id).last()}") // 임시 확인용
+            println("${historyDataSource.getUserHistories(user.pk).last()}") // 임시 확인용
             recordView.printRecordSuccessMessage()
             showUserRecords() // 업데이트된 기록 표시
         } catch (e: Exception) {
