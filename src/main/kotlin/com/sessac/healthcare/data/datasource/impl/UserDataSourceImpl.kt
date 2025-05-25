@@ -19,4 +19,30 @@ object UserDataSourceImpl : UserDataSource {
     override fun getUserById(id: String): UserDataModel {
         return dummyUsers.first { it.id == id }
     }
+
+    override fun setUserGoalDistance(userId: String, newGoalDistance: Long): UserDataModel {
+        val user = dummyUsers.find { it.id == userId }
+            ?: throw IllegalArgumentException("$userId 유저가 없습니다.")
+
+        user.goalDistance = newGoalDistance
+        return user
+    }
+
+
+    override fun setUserWeeklyGoalDistance(userId: String, newWeeklyGoalDistance: Long): UserDataModel {
+        val user = dummyUsers.find { it.id == userId }
+            ?: throw IllegalArgumentException("$userId 유저가 없습니다.")
+
+        user.weeklyGoalDistance = newWeeklyGoalDistance
+        return user
+    }
+
+    override fun setUserDailyGoalDistance(userId: String, newDailyGoalDistance: Long): UserDataModel {
+        val user = dummyUsers.find { it.id == userId }
+            ?: throw IllegalArgumentException("$userId 유저가 없습니다.")
+
+        user.dailyGoalDistance = newDailyGoalDistance
+        return user
+    }
+
 }

@@ -9,4 +9,10 @@ interface UserDataSource {
     fun setUser(userDataModel: UserDataModel)
 
     fun getUserById(id: String): UserDataModel
+
+    fun setUserGoalDistance(userId: String, newGoalDistance: Long): UserDataModel
+
+    fun setUserWeeklyGoalDistance(userId: String, newWeeklyGoalDistance: Long): UserDataModel
+
+    fun setUserDailyGoalDistance(userId: String, newDailyGoalDistance: Long): UserDataModel
 }
