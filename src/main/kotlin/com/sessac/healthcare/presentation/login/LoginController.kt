@@ -1,45 +1,57 @@
 package com.sessac.healthcare.presentation.login
 
-import com.sessac.healthcare.domain.UserEntity
+import com.sessac.healthcare.domain.usecase.CheckLoginInformationUseCase
 import com.sessac.healthcare.presentation.common.ViewController
+import com.sessac.healthcare.presentation.common.loop
+import com.sessac.healthcare.presentation.onboarding.OnboardingController
+import kotlin.system.exitProcess
 
 class LoginController : ViewController {
 
     private lateinit var loginView: LoginView
     private lateinit var loginPresentationModel: LoginPresentationModel
-    private lateinit var userEntity: UserEntity
+    private lateinit var checkLoginInformationUseCase: CheckLoginInformationUseCase
+
+    private var mainOption: Int = 0
 
     override fun run() {
         initProgram()
-        inputLoginAccountInformation()
+        loop {
+            inputMainOption()
+            inputLoginAccountInformation()
+        }
     }
 
     private fun initProgram() {
         loginView = LoginView()
-        userEntity = UserEntity()
+        checkLoginInformationUseCase = CheckLoginInformationUseCase()
     }
 
-    private fun inputLoginAccountInformation() {
-        while (true) {
-            runCatching {
-                val id = loginView.inputId()
-                val password = loginView.inputPassword()
-                loginPresentationModel = LoginPresentationModel(id, password)
-                checkLoginInformation()
-                return
+    private fun inputMainOption() {
+        try {
+            mainOption = loginView.inputMainOption().trim().toInt()
+            when (mainOption) {
+                1 -> {}
+                2 -> OnboardingController().run()
+                3 -> exitProcess(0)
             }
-                .onFailure {
-                    loginView.printLoginErrorMessage()
-                }
+        } catch (e: Exception) {
+            loginView.printOptionSelectError()
+            inputMainOption()
         }
     }
 
-    private fun checkLoginInformation() {
-        val isCheckedStatus = userEntity.checkId(loginPresentationModel.id) &&
-                userEntity.checkPassword(loginPresentationModel.password)
-
-        if (!isCheckedStatus) {
-            throw IllegalArgumentException()
+    private fun inputLoginAccountInformation() {
+        if (mainOption != 1) return
+        try {
+            val id = loginView.inputId()
+            val password = loginView.inputPassword()
+            loginPresentationModel = LoginPresentationModel(id, password)
+            loginPresentationModel.let {
+                checkLoginInformationUseCase(it.id, it.password)
+            }
+        } catch (e: Exception) {
+            loginView.printLoginErrorMessage()
         }
     }
 }
