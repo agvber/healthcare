@@ -9,4 +9,6 @@ interface UserDataSource {
     fun setUser(userDataModel: UserDataModel)
 
     fun getUserById(id: Long): UserDataModel
+
+    fun updateUser(userDataModel: UserDataModel)
 }
