@@ -1,14 +1,21 @@
 package com.sessac.healthcare.presentation.userprofile.controller
 
+import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
 import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.userprofile.UserProfileUIMapper
 import com.sessac.healthcare.presentation.userprofile.model.UserProfileUIModel
 import com.sessac.healthcare.presentation.userprofile.ui.UserProfileView
 
 class UserProfileController(
-    private val user: UserDataModel
-) {
+    private val user: UserDataModel,
+) : ViewController {
     private lateinit var userProfileUIModel: UserProfileUIModel
+
+
+    override fun run() {
+        launchUserProfile()
+    }
 
     fun launchUserProfile() {
         userProfileUIModel = UserProfileUIMapper.mapToUserProfileUIModel(user)
@@ -21,7 +28,7 @@ class UserProfileController(
                 "0" -> {
                     println("정보를 저장하고 뒤로 돌아갑니다.")
                     saveUserProfile()
-                    break
+                    return
                 }
 
                 else -> println("잘못된 입력입니다.")
@@ -31,7 +38,7 @@ class UserProfileController(
 
     private fun saveUserProfile() {
         val updateUser = UserProfileUIMapper.mapToUserDataModel(userProfileUIModel, user)
-        // 파일에 덮어쓰기 (파일 crud 구현되면 넣을 예정)
+        UserDataSourceImpl.updateUser(updateUser)
         println("수정된 정보가 저장되었습니다: $updateUser")
     }
 
@@ -50,7 +57,7 @@ class UserProfileController(
         editField(
             fieldName = "키",
             inputTransform = { input ->
-                if (input.isNotEmpty()) input.toIntOrNull() else null
+                if (input.isNotEmpty()) input.toFloatOrNull() else null
             }
         ) { newValue ->
             userProfileUIModel.height = newValue
@@ -61,7 +68,7 @@ class UserProfileController(
         editField(
             fieldName = "체중",
             inputTransform = { input ->
-                if (input.isNotEmpty()) input.toIntOrNull() else null
+                if (input.isNotEmpty()) input.toFloatOrNull() else null
             }
         ) { newValue ->
             userProfileUIModel.weight = newValue
@@ -71,16 +78,12 @@ class UserProfileController(
     private inline fun <T> editField(
         fieldName: String,
         inputTransform: (String) -> T?,
-        applyChange: (T) -> Unit
+        applyChange: (T) -> Unit,
     ) {
-        val userInput = UserProfileView.inputNewValue(fieldName)
-        val transValue = inputTransform(userInput)
-
-        if (transValue != null) {
-            applyChange(transValue)
-            UserProfileView.displayUpdateSuccess(fieldName)
-        } else {
-            UserProfileView.displayUpdateFailure(fieldName, "제대로 입력하세요. ")
-        }
+        UserProfileView.inputNewValue(fieldName)
+            .let(inputTransform)
+            ?.also { applyChange(it) }
+            ?.let { UserProfileView.displayUpdateSuccess(fieldName) }
+            ?: UserProfileView.displayUpdateFailure(fieldName, "제대로 입력하세요.")
     }
 }

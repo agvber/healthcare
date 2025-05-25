@@ -5,7 +5,7 @@ import com.sessac.healthcare.data.model.HistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.home.HomeUIMapper
-import com.sessac.healthcare.presentation.home.model.HomeCalculatedData
+import com.sessac.healthcare.presentation.home.model.HomeCalculatedModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 import com.sessac.healthcare.presentation.home.ui.HomeView
 import com.sessac.healthcare.presentation.home.utils.DistanceCalculatorUtil
@@ -39,7 +39,7 @@ class HomeController(
             "1" -> OnboardingController().run()
             "2" -> LoginController().run()
             "3" -> RecordController(user, HistoryDataSourceImpl).run()
-            "4" -> UserProfileController(user).launchUserProfile()
+            "4" -> UserProfileController(user).run()
             "5" -> ReportController().run()
             "exit" -> exitProcess(0)
             else -> println("메뉴 선택을 제대로 입력하세요.")
@@ -57,7 +57,7 @@ class HomeController(
 //        }
     }
 
-    private fun calculateHomeData(): HomeCalculatedData {
+    private fun calculateHomeData(): HomeCalculatedModel {
         val bmi = HealthUtil.calculateBMI(user.height, user.weight)
         val defaultGoalDistance = DistanceCalculatorUtil.calculateTotalGoalDistance(user.height, user.weight)
         val userWeeklyTotalDistance = DistanceCalculatorUtil.calculateWeeklyTotalDistance(histories)
@@ -65,7 +65,7 @@ class HomeController(
         val userTotalDistance = DistanceCalculatorUtil.calculateTotalDistance(histories)
         val lifeExtension = HealthUtil.calculateLifeExtension(userTotalDistance)
 
-        return HomeCalculatedData(
+        return HomeCalculatedModel(
             bmi = bmi,
             defaultGoalDistance = defaultGoalDistance,
             userWeeklyTotalDistance = userWeeklyTotalDistance,

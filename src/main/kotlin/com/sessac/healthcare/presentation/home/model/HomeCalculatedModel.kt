@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.home.model
 
-data class HomeCalculatedData(
+data class HomeCalculatedModel(
     var bmi: Float,
     var defaultGoalDistance: Long,
     var userWeeklyTotalDistance: Long,

@@ -1,14 +1,14 @@
 package com.sessac.healthcare.presentation.home
 
 import com.sessac.healthcare.data.model.UserDataModel
-import com.sessac.healthcare.presentation.home.model.HomeCalculatedData
+import com.sessac.healthcare.presentation.home.model.HomeCalculatedModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 
 object HomeUIMapper {
 
     fun mapToHomeUIModel(
         user: UserDataModel,
-        calculated: HomeCalculatedData
+        calculated: HomeCalculatedModel
 
         ) = HomeUIModel(
         id = user.pk,
