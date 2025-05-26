@@ -1,5 +1,7 @@
 package com.sessac.healthcare
 
-fun main() {
+import com.sessac.healthcare.presentation.login.LoginController
 
+fun main() {
+    LoginController().run()
 }

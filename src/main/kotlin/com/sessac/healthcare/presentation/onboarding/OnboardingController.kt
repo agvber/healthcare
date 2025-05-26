@@ -1,7 +1,6 @@
 package com.sessac.healthcare.presentation.onboarding
 
-import com.sessac.healthcare.common.utils.printStackTraceWithDebugMode
-import com.sessac.healthcare.domain.UserEntity
+import com.sessac.healthcare.domain.usecase.RegisterUserInformationUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 
 class OnboardingController : ViewController {
@@ -9,7 +8,7 @@ class OnboardingController : ViewController {
     private lateinit var onboardingView: OnboardingView
     private lateinit var onboardingMapper: OnboardingMapper
     private lateinit var onboardingPresentationModel: OnboardingPresentationModel
-    private lateinit var userEntity: UserEntity
+    private lateinit var registerUserInformationUseCase: RegisterUserInformationUseCase
 
     override fun run() {
         initProgram()
@@ -18,37 +17,25 @@ class OnboardingController : ViewController {
 
     private fun initProgram() {
         onboardingView = OnboardingView()
-        userEntity = UserEntity()
         onboardingMapper = OnboardingMapper()
         onboardingView.printWelcomeMessage()
     }
 
     private fun inputUserInformation() {
-        while (true) {
-            try {
-                val userInformationString: String = onboardingView.inputUserInformation()
-                onboardingPresentationModel =
-                    onboardingMapper.stringToOnboardingPresentationModel(userInformationString)
-                        .let {
-                            it.copy(
-                                height = userEntity.removeSecondFloatPlace(it.height),
-                                weight = userEntity.removeSecondFloatPlace(it.weight)
-                            )
-                        }
-                checkUserInformation()
-                break
-            } catch (e: Exception) {
-                onboardingView.printUserInformationInvalidError()
-                e.printStackTraceWithDebugMode()
-            }
+        try {
+            val userInformationString: String = onboardingView.inputUserInformation()
+            onboardingPresentationModel = onboardingMapper.stringToOnboardingPresentationModel(userInformationString)
+                .also {
+                    registerUserInformationUseCase(
+                        id = it.id,
+                        password = it.password,
+                        nickname = it.nickname,
+                        height = it.height,
+                        weight = it.weight
+                    )
+                }
+        } catch (e: Exception) {
+            onboardingView.printUserInformationInvalidError()
         }
-    }
-
-    private fun checkUserInformation() = with(onboardingPresentationModel) {
-        require(
-            userEntity.checkId(id) &&
-                    userEntity.checkPassword(password) &&
-                    userEntity.checkNickname(nickname)
-        )
     }
 }
