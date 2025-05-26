@@ -3,20 +3,23 @@ package com.sessac.healthcare.presentation.report
 class ReportView {
 
     fun inputOption(): Int? {
-        print("""
+        print(
+            """
             [리포트]
             1. 총 걸은 거리 출력합니다.
             2. 총 걸은 거리의 비례하여 탄소 처감량 출력합니다.
             3. 7일 동안 총 걸음수를 출력합니다.
             4. 나의 BMI, 키, 체중을 출력합니다.
+            5. 홈으로 가기
             번호를 선택하여 입력하여주세요: 
         """.trimIndent()
         )
         return readLine()?.trim()?.toIntOrNull()
     }
 
-    fun printErrorMessage() {
+    fun inputRetryOption(): Int? {
         print("해당 옵션 존재하지 않는 옵션입니다. 다시입력하여주세요: ")
+        return readLine()?.trim()?.toIntOrNull()
     }
 
     fun printUserTotalDistanceWalked(
