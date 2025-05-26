@@ -1,5 +1,6 @@
 package com.sessac.healthcare.presentation.onboarding
 
+import com.sessac.healthcare.common.utils.printStackTraceWithDebugMode
 import com.sessac.healthcare.domain.usecase.RegisterUserInformationUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 
@@ -18,6 +19,7 @@ class OnboardingController : ViewController {
     private fun initProgram() {
         onboardingView = OnboardingView()
         onboardingMapper = OnboardingMapper()
+        registerUserInformationUseCase = RegisterUserInformationUseCase()
         onboardingView.printWelcomeMessage()
     }
 
@@ -35,7 +37,9 @@ class OnboardingController : ViewController {
                     )
                 }
         } catch (e: Exception) {
+            e.printStackTraceWithDebugMode()
             onboardingView.printUserInformationInvalidError()
+            inputUserInformation()
         }
     }
 }

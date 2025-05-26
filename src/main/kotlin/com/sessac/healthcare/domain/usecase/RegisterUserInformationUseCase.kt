@@ -1,14 +1,16 @@
 package com.sessac.healthcare.domain.usecase
 
-import com.sessac.healthcare.data.datasource.UserDataSource
-import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.ds.UserDataSource
+import com.sessac.healthcare.data.ds.impl.UserDataSourceImpl
+import com.sessac.healthcare.data.model.NewUserDataModel
+import com.sessac.healthcare.domain.SessionManager
 import com.sessac.healthcare.domain.UserEntity
-import kotlin.random.Random
+import com.sessac.healthcare.domain.exception.IdExistException
 
 class RegisterUserInformationUseCase(
     private val userEntity: UserEntity = UserEntity(),
-    private val userDataSource: UserDataSource = UserDataSourceImpl
+    private val userDataSource: UserDataSource = UserDataSourceImpl,
+    private val sessionManager: SessionManager = SessionManager.getInstance()
 ) {
 
     operator fun invoke(
@@ -19,18 +21,28 @@ class RegisterUserInformationUseCase(
         weight: Float
     ) {
         require(
-            userEntity.checkId(id) && userEntity.checkPassword(password) &&
+            value = userEntity.checkId(id) && userEntity.checkPassword(password) &&
                     userEntity.checkNickname(nickname)
+        ) { "사용자 정보 유효성 검사" }
+
+        if (isUserIdExist(id)) {
+            throw IdExistException()
+        }
+
+        val user = NewUserDataModel(
+            userId = id,
+            password = password,
+            nickname = nickname,
+            height = height,
+            weight = weight,
+            goalDistance = 0,
+            dailyGoalDistance = 0,
+            weeklyGoalDistance = 0
         )
-
-//        val userDataModel = UserDataModel(
-//            id = Random.nextLong(10000, 9999999),
-//            nickname = nickname,
-//            height = userEntity.removeSecondFloatPlace(height).toInt(),
-//            weight = userEntity.removeSecondFloatPlace(weight).toInt(),
-//            goalDistance = 1000
-//        )
-
-//        userDataSource.setUser(userDataModel)
+        userDataSource.createUser(newUserDataModel = user)
+        sessionManager.setUser(user)
     }
+
+    private fun isUserIdExist(id: String) =
+        userDataSource.getUsers().find { it.userId == id } != null
 }

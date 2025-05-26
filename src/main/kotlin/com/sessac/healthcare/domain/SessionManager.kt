@@ -1,21 +1,17 @@
 package com.sessac.healthcare.domain
 
-import kotlin.properties.Delegates
+import com.sessac.healthcare.data.model.NewUserDataModel
 
 class SessionManager private constructor() {
 
-    private var loggedInUserId by Delegates.notNull<Long>()
+    private lateinit var loggedInUser: NewUserDataModel
 
-    init {
-        loggedInUserId = 0
+    fun getUser(): NewUserDataModel {
+        return loggedInUser
     }
 
-    fun getUserId(): Long {
-        return loggedInUserId
-    }
-
-    fun setUserId(userId: Long) {
-        loggedInUserId = userId
+    fun setUser(user: NewUserDataModel) {
+        loggedInUser = user
     }
 
     companion object {

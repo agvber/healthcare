@@ -1,17 +1,16 @@
 package com.sessac.healthcare.presentation.userprofile.controller
 
-import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.ds.impl.UserDataSourceImpl
+import com.sessac.healthcare.data.model.NewUserDataModel
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.userprofile.UserProfileUIMapper
 import com.sessac.healthcare.presentation.userprofile.model.UserProfileUIModel
 import com.sessac.healthcare.presentation.userprofile.ui.UserProfileView
 
 class UserProfileController(
-    private val user: UserDataModel,
+    private val user: NewUserDataModel,
 ) : ViewController {
     private lateinit var userProfileUIModel: UserProfileUIModel
-
 
     override fun run() {
         launchUserProfile()

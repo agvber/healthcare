@@ -3,6 +3,7 @@ package com.sessac.healthcare.presentation.login
 import com.sessac.healthcare.domain.usecase.CheckLoginInformationUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.common.loop
+import com.sessac.healthcare.presentation.home.controller.HomeController
 import com.sessac.healthcare.presentation.onboarding.OnboardingController
 import kotlin.system.exitProcess
 
@@ -50,6 +51,7 @@ class LoginController : ViewController {
             loginPresentationModel.let {
                 checkLoginInformationUseCase(it.id, it.password)
             }
+            HomeController().run()
         } catch (e: Exception) {
             loginView.printLoginErrorMessage()
         }
