@@ -2,12 +2,12 @@ package com.sessac.healthcare.data.datasource.impl
 
 import com.sessac.healthcare.data.datasource.GHistoryDataSource
 import com.sessac.healthcare.data.model.GHistoryDataModel
-import com.sessac.healthcare.data.model.fake.GDummyHistoryModels
+import com.sessac.healthcare.data.model.fake.DummyHistoryModels
 import java.time.LocalDate
 
 object GHistoryDataSourceImpl : GHistoryDataSource {
 
-    private val GDummyHistoryModels: MutableList<GHistoryDataModel> = GDummyHistoryModels().get().toMutableList()
+    private val GDummyHistoryModels: MutableList<GHistoryDataModel> = DummyHistoryModels().get().toMutableList()
 
     override fun getUserHistories(userId: String): List<GHistoryDataModel> {
         return GDummyHistoryModels.filter {

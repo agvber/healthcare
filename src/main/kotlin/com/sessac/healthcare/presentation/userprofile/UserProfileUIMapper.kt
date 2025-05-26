@@ -8,7 +8,7 @@ object UserProfileUIMapper {
     fun mapToUserProfileUIModel(
         user: UserDataModel
     ): UserProfileUIModel = UserProfileUIModel(
-        id = user.pk,
+        id = user.id,
         nickName = user.nickname,
         height = user.height,
         weight = user.weight,
@@ -19,7 +19,7 @@ object UserProfileUIMapper {
         uiModel: UserProfileUIModel,
         dataModel: UserDataModel
     ) = UserDataModel(
-        pk = uiModel.id,
+        pk = 0,
         nickname = uiModel.nickName,
         height = uiModel.height,
         weight = uiModel.weight,

@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.home.utils
 
-import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.data.model.GHistoryDataModel
 import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateBMI
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -20,12 +20,12 @@ object DistanceCalculatorUtil {
     /**
      * 유저의 총 누적 거리 계산
      */
-    fun calculateTotalDistance(histories: List<HistoryDataModel>) = histories.sumOf { it.distanceWalked }
+    fun calculateTotalDistance(histories: List<GHistoryDataModel>) = histories.sumOf { it.distanceWalked }
 
     /**
      * 유저의 주간 누적 거리 계싼
      */
-    fun calculateWeeklyTotalDistance(histories: List<HistoryDataModel>): Long {
+    fun calculateWeeklyTotalDistance(histories: List<GHistoryDataModel>): Long {
         val (start, end) = getCurrentWeekPeriod()
         return histories.filter {
             val date = it.startDateTime.toLocalDate()
@@ -36,7 +36,7 @@ object DistanceCalculatorUtil {
     /**
      * 유저의 일일 누적 거리 계산
      */
-    fun calculateDailyTotalDistance(histories: List<HistoryDataModel>): Long {
+    fun calculateDailyTotalDistance(histories: List<GHistoryDataModel>): Long {
         val today = LocalDate.now()
         return histories.filter {
             it.startDateTime.toLocalDate() == today

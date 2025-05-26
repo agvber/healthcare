@@ -1,7 +1,7 @@
 package com.sessac.healthcare.presentation.home.controller
 
-import com.sessac.healthcare.data.datasource.impl.HistoryDataSourceImpl
-import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.data.datasource.impl.GHistoryDataSourceImpl
+import com.sessac.healthcare.data.model.GHistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.home.HomeUIMapper
@@ -19,7 +19,7 @@ import kotlin.system.exitProcess
 
 class HomeController(
     private val user: UserDataModel,
-    private val histories: List<HistoryDataModel>,
+    private val histories: List<GHistoryDataModel>,
 //    private val menuListener: HomeMenuListener
 ) : ViewController {
     private lateinit var homeUIModel: HomeUIModel
@@ -38,7 +38,7 @@ class HomeController(
         when (val menu = HomeView.testMenu().trim()) {
             "1" -> OnboardingController().run()
             "2" -> LoginController().run()
-            "3" -> RecordController(user, HistoryDataSourceImpl).run()
+            "3" -> RecordController(user, GHistoryDataSourceImpl).run()
             "4" -> UserProfileController(user).run()
             "5" -> ReportController().run()
             "exit" -> exitProcess(0)

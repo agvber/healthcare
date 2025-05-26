@@ -1,18 +1,18 @@
 package com.sessac.healthcare.presentation.record
 
-import com.sessac.healthcare.data.datasource.HistoryDataSource
-import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.data.datasource.GHistoryDataSource
+import com.sessac.healthcare.data.model.GHistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.common.ViewController
 
 class RecordController(
     private val user: UserDataModel,
-    private val historyDataSource: HistoryDataSource,
+    private val historyDataSource: GHistoryDataSource,
 ) : ViewController {
 
     private lateinit var recordView: RecordView
     private lateinit var recordMapper: RecordMapper
-    private lateinit var userRecords: List<HistoryDataModel>
+    private lateinit var userRecords: List<GHistoryDataModel>
 
     override fun run() {
         recordView = RecordView()
@@ -23,7 +23,7 @@ class RecordController(
 
     private fun showUserRecords() {
         recordView.printRecordDefaultMessage()
-        userRecords = historyDataSource.getUserHistories(user.pk)
+        userRecords = historyDataSource.getUserHistories(user.id)
         val presentationModels = userRecords.map {
             recordMapper.historyDataModelToPresentation(it)
         }
@@ -41,11 +41,11 @@ class RecordController(
     private fun handleRecordInsertion() {
         try {
             val userInput = recordView.inputRecord()
-            val lastId = historyDataSource.getLastId()
-            val newRecord = recordMapper.stringToHistoryDataModel(userInput, user.pk, lastId)
+            val lastId = historyDataSource.getLastPk()
+            val newRecord = recordMapper.stringToHistoryDataModel(userInput, user.id, lastId)
 
             historyDataSource.setUserHistory(newRecord)
-            println("${historyDataSource.getUserHistories(user.pk).last()}") // 임시 확인용
+            println("${historyDataSource.getUserHistories(user.id).last()}") // 임시 확인용
             recordView.printRecordSuccessMessage()
             showUserRecords() // 업데이트된 기록 표시
         } catch (e: Exception) {

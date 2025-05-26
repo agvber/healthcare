@@ -2,7 +2,7 @@ package com.sessac.healthcare.presentation.goal
 
 import com.sessac.healthcare.data.model.GHistoryDataModel
 import com.sessac.healthcare.data.model.GUserDataModel
-import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateTotalGoalDistance
+import com.sessac.healthcare.presentation.home.utils.DistanceCalculatorUtil.calculateTotalGoalDistance
 import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateTreeGrowthStage
 
 class GoalMapper {
