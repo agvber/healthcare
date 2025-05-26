@@ -5,6 +5,7 @@ import com.sessac.healthcare.domain.usecase.GetUserInformationUseCase
 import com.sessac.healthcare.domain.usecase.GetUserTotalCarbonReductionUseCase
 import com.sessac.healthcare.domain.usecase.GetWeekStepCountUseCase
 import com.sessac.healthcare.presentation.common.ViewController
+import com.sessac.healthcare.presentation.common.loop
 
 class ReportController : ViewController {
 
@@ -20,9 +21,14 @@ class ReportController : ViewController {
         initProgram()
         initUseCase()
         loadInitData()
-        inputOptionNumber()
-        processMain()
+        loop({ isContinue() }) {
+            inputOptionNumber()
+            processMain()
+        }
     }
+
+    private fun isContinue(): Boolean =
+        reportPresentationModel.consoleMainOption != 5
 
     private fun initProgram() {
         reportView = ReportView()
@@ -45,11 +51,23 @@ class ReportController : ViewController {
     }
 
     private fun inputOptionNumber() {
-        while (true) {
-            reportView.inputOption()
-                ?.also { reportPresentationModel.consoleMainOption = it }
-                ?: reportView.printErrorMessage()
+        val option: Int? = reportView.inputOption()
+
+        if (option != null && option in mainOptionRange) {
+            reportPresentationModel.consoleMainOption = option
+            return
         }
+        inputRetryOptionNumber()
+    }
+
+    private fun inputRetryOptionNumber() {
+        val option: Int? = reportView.inputRetryOption()
+
+        if (option == null || option !in mainOptionRange) {
+            inputRetryOptionNumber()
+            return
+        }
+        reportPresentationModel.consoleMainOption = option
     }
 
     private fun processMain() {
@@ -101,5 +119,9 @@ class ReportController : ViewController {
             height = height,
             weight = weight
         )
+    }
+
+    companion object {
+        private val mainOptionRange: IntRange = 1..5
     }
 }
