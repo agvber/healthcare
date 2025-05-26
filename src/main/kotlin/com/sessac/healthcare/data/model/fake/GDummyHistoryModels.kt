@@ -3,7 +3,7 @@ package com.sessac.healthcare.data.model.fake
 import com.sessac.healthcare.data.model.GHistoryDataModel
 import java.time.LocalDateTime
 
-class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
+class GDummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
     override fun build(): List<GHistoryDataModel> {
         return listOf(
             GHistoryDataModel(
