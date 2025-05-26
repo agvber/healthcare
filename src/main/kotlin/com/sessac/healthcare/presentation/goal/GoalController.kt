@@ -1,11 +1,11 @@
 package com.sessac.healthcare.presentation.goal
 
-import com.sessac.healthcare.data.datasource.impl.GUserDataSourceImpl
-import com.sessac.healthcare.data.model.GHistoryDataModel
-import com.sessac.healthcare.data.model.GUserDataModel
+import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
+import com.sessac.healthcare.data.model.NewHistoryDataModel
+import com.sessac.healthcare.data.model.NewUserDataModel
 import com.sessac.healthcare.presentation.common.ViewController
 
-class GoalController(private val user: GUserDataModel, private val userRecords: List<GHistoryDataModel>) : ViewController {
+class GoalController(private val user: NewUserDataModel, private val userRecords: List<NewHistoryDataModel>) : ViewController {
     private lateinit var goalView: GoalView
     private lateinit var goalMapper: GoalMapper
     private lateinit var presentationModel: GoalPresentationModel
@@ -44,21 +44,24 @@ class GoalController(private val user: GUserDataModel, private val userRecords: 
 
     private fun insertTotalGoalDistance() {
         val goalInput = goalView.inputTotalGoalDistance()
-        val updatedUser = GUserDataSourceImpl.setUserGoalDistance(user.id, goalInput.toLong())
+        val updatedUser = user.copy(goalDistance = goalInput.toLong())
+        UserDataSourceImpl.updateUser(updatedUser)
         goalView.printUpdateGoal()
         goalView.printGoal(updatedUser)
     }
 
     private fun insertWeeklyGoalDistance() {
         val goalInput = goalView.inputWeeklyGoalDistance()
-        val updatedUser = GUserDataSourceImpl.setUserWeeklyGoalDistance(user.id, goalInput.toLong())
+        val updatedUser = user.copy(weeklyGoalDistance = goalInput.toLong())
+        UserDataSourceImpl.updateUser(updatedUser)
         goalView.printUpdateGoal()
         goalView.printGoal(updatedUser)
     }
 
     private fun insertDailyGoalDistance() {
         val goalInput = goalView.inputDailyGoalDistance()
-        val updatedUser = GUserDataSourceImpl.setUserDailyGoalDistance(user.id, goalInput.toLong())
+        val updatedUser = user.copy(dailyGoalDistance = goalInput.toLong())
+        UserDataSourceImpl.updateUser(updatedUser)
         goalView.printUpdateGoal()
         goalView.printGoal(updatedUser)
     }
