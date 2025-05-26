@@ -1,8 +1,8 @@
 package com.sessac.healthcare.presentation.home.controller
 
 import com.sessac.healthcare.data.datasource.impl.GHistoryDataSourceImpl
-import com.sessac.healthcare.data.model.GHistoryDataModel
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.model.NewHistoryDataModel
+import com.sessac.healthcare.data.model.NewUserDataModel
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.home.HomeUIMapper
 import com.sessac.healthcare.presentation.home.model.HomeCalculatedModel
@@ -18,8 +18,8 @@ import com.sessac.healthcare.presentation.userprofile.controller.UserProfileCont
 import kotlin.system.exitProcess
 
 class HomeController(
-    private val user: UserDataModel,
-    private val histories: List<GHistoryDataModel>,
+    private val user: NewUserDataModel,
+    private val histories: List<NewHistoryDataModel>,
 //    private val menuListener: HomeMenuListener
 ) : ViewController {
     private lateinit var homeUIModel: HomeUIModel
@@ -28,7 +28,7 @@ class HomeController(
         launchHome()
     }
 
-    fun launchHome() {
+    private fun launchHome() {
 
         homeUIModel = HomeUIMapper.mapToHomeUIModel(user, calculateHomeData())
         HomeView.displayHomeHeader()
