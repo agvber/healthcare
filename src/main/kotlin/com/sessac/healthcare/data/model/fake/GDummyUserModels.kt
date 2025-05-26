@@ -1,12 +1,12 @@
 package com.sessac.healthcare.data.model.fake
 
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.model.GUserDataModel
 
-class DummyUserModels : DummyModel<List<UserDataModel>>() {
+class GDummyUserModels : DummyModel<List<GUserDataModel>>() {
 
-    override fun build(): List<UserDataModel> {
+    override fun build(): List<GUserDataModel> {
         return listOf(
-            UserDataModel(
+            GUserDataModel(
                 pk = 1L,
                 nickname = "홍길동",
                 height = 175.5f,
@@ -17,7 +17,7 @@ class DummyUserModels : DummyModel<List<UserDataModel>>() {
                 dailyGoalDistance = 5000L,  // 일일 기본 목표 거리
                 weeklyGoalDistance = 35000L  // 주간 기본 목표 거리
             ),
-            UserDataModel(
+            GUserDataModel(
                 pk = 2L,
                 nickname = "김철수",
                 height = 180.0f,
@@ -28,7 +28,7 @@ class DummyUserModels : DummyModel<List<UserDataModel>>() {
                 dailyGoalDistance = 5000L,
                 weeklyGoalDistance = 35000L
             ),
-            UserDataModel(
+            GUserDataModel(
                 pk = 3L,
                 nickname = "이영희",
                 height = 165.0f,

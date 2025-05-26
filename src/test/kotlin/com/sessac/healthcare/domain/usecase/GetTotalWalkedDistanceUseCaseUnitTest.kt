@@ -1,7 +1,7 @@
 package com.sessac.healthcare.domain.usecase
 
-import com.sessac.healthcare.data.datasource.HistoryDataSource
-import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.data.datasource.GHistoryDataSource
+import com.sessac.healthcare.data.model.GHistoryDataModel
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -15,9 +15,9 @@ class GetTotalWalkedDistanceUseCaseUnitTest {
     @BeforeEach
     fun init() {
         getTotalWalkedDistanceUseCase = GetTotalWalkedDistanceUseCase(
-            historyDataSource = object : HistoryDataSource {
-                override fun getUserHistories(userId: Long): List<HistoryDataModel> {
-                    val dummy = HistoryDataModel(
+            GHistoryDataSource = object : GHistoryDataSource {
+                override fun getUserHistories(userId: Long): List<GHistoryDataModel> {
+                    val dummy = GHistoryDataModel(
                         id = 11,
                         userId = 111,
                         startDateTime = LocalDateTime.now().minusDays(11),
@@ -32,7 +32,7 @@ class GetTotalWalkedDistanceUseCaseUnitTest {
                     userId: Long,
                     startDate: LocalDate,
                     endDate: LocalDate
-                ): List<HistoryDataModel> {
+                ): List<GHistoryDataModel> {
                     TODO("Not yet implemented")
                 }
 
@@ -40,7 +40,7 @@ class GetTotalWalkedDistanceUseCaseUnitTest {
                     TODO("Not yet implemented")
                 }
 
-                override fun setUserHistory(historyDataModel: HistoryDataModel) {
+                override fun setUserHistory(GHistoryDataModel: GHistoryDataModel) {
                     TODO("Not yet implemented")
                 }
 

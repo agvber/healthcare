@@ -14,7 +14,7 @@ import java.time.LocalDateTime
  * @constructor Create empty History data model
  */
 
-data class HistoryDataModel(
+data class GHistoryDataModel(
     val pk: Long,
     val userId: String,
     val startDateTime: LocalDateTime,

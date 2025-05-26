@@ -21,7 +21,7 @@ package com.sessac.healthcare.data.model
  * 로그인할 때 id랑 PK id 구별해야함.
  */
 
-data class UserDataModel(
+data class GUserDataModel(
     val pk: Long,
     val nickname: String,
     val height: Float,

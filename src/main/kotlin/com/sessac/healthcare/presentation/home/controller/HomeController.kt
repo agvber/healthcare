@@ -1,7 +1,7 @@
 package com.sessac.healthcare.presentation.home.controller
 
-import com.sessac.healthcare.data.model.HistoryDataModel
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.model.GHistoryDataModel
+import com.sessac.healthcare.data.model.GUserDataModel
 import com.sessac.healthcare.presentation.goal.GoalController
 import com.sessac.healthcare.presentation.home.HomeUIMapper
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
@@ -14,8 +14,8 @@ import com.sessac.healthcare.presentation.userprofile.controller.UserProfileCont
 import kotlin.system.exitProcess
 
 class HomeController(
-    private val user: UserDataModel,
-    private val histories: List<HistoryDataModel>
+    private val user: GUserDataModel,
+    private val histories: List<GHistoryDataModel>
 //    private val menuListener: HomeMenuListener
 ) {
     private lateinit var homeUIModel: HomeUIModel

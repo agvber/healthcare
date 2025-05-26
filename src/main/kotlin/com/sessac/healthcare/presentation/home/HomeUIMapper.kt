@@ -1,7 +1,7 @@
 package com.sessac.healthcare.presentation.home
 
-import com.sessac.healthcare.data.model.HistoryDataModel
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.model.GHistoryDataModel
+import com.sessac.healthcare.data.model.GUserDataModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateBMI
 import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateLifeExtension
@@ -11,8 +11,8 @@ import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateTreeGro
 object HomeUIMapper {
 
     fun mapToHomeUIModel(
-        user: UserDataModel,
-        histories: List<HistoryDataModel>,
+        user: GUserDataModel,
+        histories: List<GHistoryDataModel>,
     ): HomeUIModel {
         val totalDistance = histories.sumOf { it.distanceWalked }
         val bmi = calculateBMI(user.height, user.weight)

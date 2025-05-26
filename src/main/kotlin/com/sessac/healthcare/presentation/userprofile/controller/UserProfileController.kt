@@ -1,12 +1,12 @@
 package com.sessac.healthcare.presentation.userprofile.controller
 
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.model.GUserDataModel
 import com.sessac.healthcare.presentation.userprofile.UserProfileUIMapper
 import com.sessac.healthcare.presentation.userprofile.model.UserProfileUIModel
 import com.sessac.healthcare.presentation.userprofile.ui.UserProfileView
 
 class UserProfileController(
-    private val user: UserDataModel
+    private val user: GUserDataModel
 ) {
     private lateinit var userProfileUIModel: UserProfileUIModel
 
