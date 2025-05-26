@@ -1,10 +1,9 @@
 package com.sessac.healthcare.data.model
 
-
 /**
  * User data model
  *
- * @property pk
+ * @property id
  * @property nickname
  * @property height
  * @property weight
@@ -16,14 +15,20 @@ package com.sessac.healthcare.data.model
  * @constructor Create empty User data model
  */
 
-data class UserDataModel(
+/**
+ * 수정해야할 것
+ * 유저가 작성한 목표 거리랑 기본 목표 거리를 구별해야해서 기본 목표거리 추가해야함.
+ * 로그인할 때 id랑 PK id 구별해야함.
+ */
+
+data class GUserDataModel(
     val pk: Long,
     val nickname: String,
     val height: Float,
     val weight: Float,
-    val goalDistance: Long,
+    var goalDistance: Long,
     val id: String,
     val password: String,
-    val dailyGoalDistance: Long,
-    val weeklyGoalDistance: Long,
+    var dailyGoalDistance: Long,
+    var weeklyGoalDistance: Long,
 )

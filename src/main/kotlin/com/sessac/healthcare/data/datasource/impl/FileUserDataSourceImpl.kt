@@ -32,14 +32,14 @@ class FileUserDataSourceImpl(
                 return@forEach
             }
             val textLine = fileParsingUtil.parseToObj(string)
-            val userDataModel = UserDataModel(
-                id = textLine["id"].toString().toLong(),
-                nickname = textLine["nickname"].toString(),
-                height = textLine["height"].toString().toInt(),
-                weight = textLine["weight"].toString().toInt(),
-                goalDistance = textLine["goalDistance"].toString().toLong()
-            )
-            result.add(userDataModel)
+//            val userDataModel = UserDataModel(
+//                id = textLine["id"].toString().toLong(),
+//                nickname = textLine["nickname"].toString(),
+//                height = textLine["height"].toString().toInt(),
+//                weight = textLine["weight"].toString().toInt(),
+//                goalDistance = textLine["goalDistance"].toString().toLong()
+//            )
+//            result.add(userDataModel)
         }
         return result
     }
@@ -56,17 +56,21 @@ class FileUserDataSourceImpl(
                 return@forEach
             }
             val textLine = fileParsingUtil.parseToObj(string)
-            if (textLine["id"] == id.toString()) {
-                return UserDataModel(
-                    id = textLine["id"].toString().toLong(),
-                    nickname = textLine["nickname"].toString(),
-                    height = textLine["height"].toString().toInt(),
-                    weight = textLine["weight"].toString().toInt(),
-                    goalDistance = textLine["goalDistance"].toString().toLong()
-                )
-            }
+//            if (textLine["id"] == id.toString()) {
+//                return UserDataModel(
+//                    id = textLine["id"].toString().toLong(),
+//                    nickname = textLine["nickname"].toString(),
+//                    height = textLine["height"].toString().toInt(),
+//                    weight = textLine["weight"].toString().toInt(),
+//                    goalDistance = textLine["goalDistance"].toString().toLong()
+//                )
+//            }
         }
         throw IllegalStateException()
+    }
+
+    override fun updateUser(userDataModel: UserDataModel) {
+        TODO("Not yet implemented")
     }
 
     companion object {

@@ -1,8 +1,8 @@
 package com.sessac.healthcare.presentation.userprofile.model
 
 data class UserProfileUIModel(
-    val id: Long,
+    val id: String,
     var nickName: String,
-    var height: Int,
-    var weight: Int,
+    var height: Float,
+    var weight: Float,
 )

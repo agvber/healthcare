@@ -23,14 +23,14 @@ class RegisterUserInformationUseCase(
                     userEntity.checkNickname(nickname)
         )
 
-        val userDataModel = UserDataModel(
-            id = Random.nextLong(10000, 9999999),
-            nickname = nickname,
-            height = userEntity.removeSecondFloatPlace(height).toInt(),
-            weight = userEntity.removeSecondFloatPlace(weight).toInt(),
-            goalDistance = 1000
-        )
+//        val userDataModel = UserDataModel(
+//            id = Random.nextLong(10000, 9999999),
+//            nickname = nickname,
+//            height = userEntity.removeSecondFloatPlace(height).toInt(),
+//            weight = userEntity.removeSecondFloatPlace(weight).toInt(),
+//            goalDistance = 1000
+//        )
 
-        userDataSource.setUser(userDataModel)
+//        userDataSource.setUser(userDataModel)
     }
 }
