@@ -1,11 +1,15 @@
 package com.sessac.healthcare.presentation.home.controller
 
-import com.sessac.healthcare.data.model.GHistoryDataModel
-import com.sessac.healthcare.data.model.GUserDataModel
-import com.sessac.healthcare.presentation.goal.GoalController
+import com.sessac.healthcare.data.datasource.impl.HistoryDataSourceImpl
+import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.home.HomeUIMapper
+import com.sessac.healthcare.presentation.home.model.HomeCalculatedModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 import com.sessac.healthcare.presentation.home.ui.HomeView
+import com.sessac.healthcare.presentation.home.utils.DistanceCalculatorUtil
+import com.sessac.healthcare.presentation.home.utils.HealthUtil
 import com.sessac.healthcare.presentation.login.LoginController
 import com.sessac.healthcare.presentation.onboarding.OnboardingController
 import com.sessac.healthcare.presentation.record.RecordController
@@ -14,29 +18,33 @@ import com.sessac.healthcare.presentation.userprofile.controller.UserProfileCont
 import kotlin.system.exitProcess
 
 class HomeController(
-    private val user: GUserDataModel,
-    private val histories: List<GHistoryDataModel>
+    private val user: UserDataModel,
+    private val histories: List<HistoryDataModel>,
 //    private val menuListener: HomeMenuListener
-) {
+) : ViewController {
     private lateinit var homeUIModel: HomeUIModel
 
+    override fun run() {
+        launchHome()
+    }
+
     fun launchHome() {
-        homeUIModel = HomeUIMapper.mapToHomeUIModel(user, histories)
+
+        homeUIModel = HomeUIMapper.mapToHomeUIModel(user, calculateHomeData())
         HomeView.displayHomeHeader()
         HomeView.displayUserInfo(homeUIModel)
         HomeView.displayDistanceInfo(homeUIModel)
 
-        when (val menu = HomeView.displayMenu().trim()) { // 1. 온보딩 2. 로그인 3. 기록 4. 내 정보 5. 리포트 6. 목표
+        when (val menu = HomeView.testMenu().trim()) {
             "1" -> OnboardingController().run()
             "2" -> LoginController().run()
-            "3" -> RecordController(user).run()
-            "4" -> UserProfileController(user).launchUserProfile()
+            "3" -> RecordController(user, HistoryDataSourceImpl).run()
+            "4" -> UserProfileController(user).run()
             "5" -> ReportController().run()
-            "6" -> GoalController(user, histories).run()
             "exit" -> exitProcess(0)
-            else -> TODO("잘못 입력하셨습니다.")
+            else -> println("메뉴 선택을 제대로 입력하세요.")
         }
-//
+
 //        when (val menu = HomeView.displayMenu().trim()) {
 //            "1" -> menuListener.onSelectRecord()
 //            "2" -> menuListener.onSelectGoal()
@@ -47,5 +55,24 @@ class HomeController(
 //            }
 //            else -> menuListener.onInvalidInput()
 //        }
+    }
+
+    private fun calculateHomeData(): HomeCalculatedModel {
+        val bmi = HealthUtil.calculateBMI(user.height, user.weight)
+        val defaultGoalDistance = DistanceCalculatorUtil.calculateTotalGoalDistance(user.height, user.weight)
+        val userWeeklyTotalDistance = DistanceCalculatorUtil.calculateWeeklyTotalDistance(histories)
+        val userDailyTotalDistance = DistanceCalculatorUtil.calculateDailyTotalDistance(histories)
+        val userTotalDistance = DistanceCalculatorUtil.calculateTotalDistance(histories)
+        val lifeExtension = HealthUtil.calculateLifeExtension(userTotalDistance)
+
+        return HomeCalculatedModel(
+            bmi = bmi,
+            defaultGoalDistance = defaultGoalDistance,
+            userWeeklyTotalDistance = userWeeklyTotalDistance,
+            userDailyTotalDistance = userDailyTotalDistance,
+            lifeExtension = lifeExtension,
+            userTotalDistance = userTotalDistance
+        )
+
     }
 }
