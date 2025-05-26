@@ -56,19 +56,6 @@ object HomeView {
 //        println()
     }
 
-    fun testMenu(): String{
-        println("======================================")
-        println("1. 회원가입 화면")
-        println("2. 로그인 화면")
-        println("3. 기록 화면")
-        println("4. 내 정보")
-        println("5. 리포트")
-        println("exit. 프로그램 종료")
-        println("======================================")
-        print("선택 >> ")
-        return readln()
-    }
-
     fun displayMenu(): String{
         println("======================================")
         println("1. 기록 화면")

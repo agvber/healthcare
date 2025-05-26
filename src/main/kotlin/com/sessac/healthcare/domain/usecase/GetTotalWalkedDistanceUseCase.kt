@@ -13,6 +13,8 @@ class GetTotalWalkedDistanceUseCase(
     operator fun invoke(): Long {
         val user: NewUserDataModel = sessionManager.getUser()
         val histories = historiesDataSource.getUserHistories(user.userId) // 유저 정보 가져오기
-        return histories.sumOf { it.distanceWalked }
+        return histories
+
+            .sumOf { it.distanceWalked }
     }
 }

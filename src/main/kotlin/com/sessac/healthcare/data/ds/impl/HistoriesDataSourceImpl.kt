@@ -8,7 +8,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
 
 
     override fun getUserHistories(userId: String): List<NewHistoryDataModel> {
-        return dummyData
+        return dummyData.filter { it.userId == userId }
     }
 
     override fun createUserHistory(newHistoryDataModel: NewHistoryDataModel) {

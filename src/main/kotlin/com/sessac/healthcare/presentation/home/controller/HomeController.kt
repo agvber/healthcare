@@ -1,9 +1,14 @@
 package com.sessac.healthcare.presentation.home.controller
 
 import com.sessac.healthcare.data.datasource.impl.GHistoryDataSourceImpl
+import com.sessac.healthcare.data.ds.HistoriesDataSource
+import com.sessac.healthcare.data.ds.impl.HistoriesDataSourceImpl
 import com.sessac.healthcare.data.model.NewHistoryDataModel
 import com.sessac.healthcare.data.model.NewUserDataModel
+import com.sessac.healthcare.domain.SessionManager
 import com.sessac.healthcare.presentation.common.ViewController
+import com.sessac.healthcare.presentation.common.loop
+import com.sessac.healthcare.presentation.goal.GoalController
 import com.sessac.healthcare.presentation.home.HomeUIMapper
 import com.sessac.healthcare.presentation.home.model.HomeCalculatedModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
@@ -18,14 +23,17 @@ import com.sessac.healthcare.presentation.userprofile.controller.UserProfileCont
 import kotlin.system.exitProcess
 
 class HomeController(
-    private val user: NewUserDataModel,
-    private val histories: List<NewHistoryDataModel>,
 //    private val menuListener: HomeMenuListener
 ) : ViewController {
+
+    private val sessionManager: SessionManager = SessionManager.getInstance()
+    private val user = sessionManager.getUser()
+    private val histories: List<NewHistoryDataModel> = HistoriesDataSourceImpl.getUserHistories(user.userId)
+
     private lateinit var homeUIModel: HomeUIModel
 
     override fun run() {
-        launchHome()
+        loop { launchHome() }
     }
 
     private fun launchHome() {
@@ -35,10 +43,10 @@ class HomeController(
         HomeView.displayUserInfo(homeUIModel)
         HomeView.displayDistanceInfo(homeUIModel)
 
-        when (val menu = HomeView.testMenu().trim()) {
-            "1" -> OnboardingController().run()
-            "2" -> LoginController().run()
-            "3" -> RecordController(user, GHistoryDataSourceImpl).run()
+        when (val menu = HomeView.displayMenu().trim()) {
+//            "1" -> RecordController(user, GHistoryDataSourceImpl).run()
+//            "2" -> GoalController().run()
+            "3" -> ReportController().run()
             "4" -> UserProfileController(user).run()
             "5" -> ReportController().run()
             "exit" -> exitProcess(0)

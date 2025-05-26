@@ -1,6 +1,5 @@
 package com.sessac.healthcare.presentation.home
 
-import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
 import com.sessac.healthcare.data.model.HistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.home.controller.HomeController
