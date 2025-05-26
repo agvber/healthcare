@@ -1,18 +1,19 @@
 package com.sessac.healthcare.presentation.record
 
-import com.sessac.healthcare.data.datasource.GHistoryDataSource
-import com.sessac.healthcare.data.model.GHistoryDataModel
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.datasource.impl.HistoriesDataSourceImpl
+import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.domain.entites.SessionManager
 import com.sessac.healthcare.presentation.common.ViewController
 
-class RecordController(
-    private val user: UserDataModel,
-    private val historyDataSource: GHistoryDataSource,
-) : ViewController {
+class RecordController : ViewController {
+
+    private val sessionManager = SessionManager.getInstance()
+    private val user = sessionManager.getUser()
+    private val historyDataSource = HistoriesDataSourceImpl
 
     private lateinit var recordView: RecordView
     private lateinit var recordMapper: RecordMapper
-    private lateinit var userRecords: List<GHistoryDataModel>
+    private lateinit var userRecords: List<HistoryDataModel>
 
     override fun run() {
         recordView = RecordView()
@@ -23,7 +24,7 @@ class RecordController(
 
     private fun showUserRecords() {
         recordView.printRecordDefaultMessage()
-        userRecords = historyDataSource.getUserHistories(user.id)
+        userRecords = historyDataSource.getUserHistories(user.userId)
         val presentationModels = userRecords.map {
             recordMapper.historyDataModelToPresentation(it)
         }
@@ -41,11 +42,11 @@ class RecordController(
     private fun handleRecordInsertion() {
         try {
             val userInput = recordView.inputRecord()
-            val lastId = historyDataSource.getLastPk()
-            val newRecord = recordMapper.stringToHistoryDataModel(userInput, user.id, lastId)
+            val lastId = userRecords.lastOrNull()?.historyId ?: 0
+            val newRecord = recordMapper.stringToHistoryDataModel(userInput, user.userId, lastId)
 
-            historyDataSource.setUserHistory(newRecord)
-            println("${historyDataSource.getUserHistories(user.id).last()}") // 임시 확인용
+            historyDataSource.createUserHistory(newRecord)
+            println("${historyDataSource.getUserHistories(user.userId).last()}") // 임시 확인용
             recordView.printRecordSuccessMessage()
             showUserRecords() // 업데이트된 기록 표시
         } catch (e: Exception) {

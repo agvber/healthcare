@@ -1,9 +1,9 @@
 package com.sessac.healthcare.domain.usecase
 
-import com.sessac.healthcare.data.ds.HistoriesDataSource
-import com.sessac.healthcare.data.ds.impl.HistoriesDataSourceImpl
-import com.sessac.healthcare.data.model.NewUserDataModel
-import com.sessac.healthcare.domain.SessionManager
+import com.sessac.healthcare.data.datasource.HistoriesDataSource
+import com.sessac.healthcare.data.datasource.impl.HistoriesDataSourceImpl
+import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.domain.entites.SessionManager
 import java.time.LocalDateTime
 
 class GetWeekStepCountUseCase(
@@ -11,7 +11,7 @@ class GetWeekStepCountUseCase(
     private val sessionManager: SessionManager = SessionManager.getInstance()
 ) {
     operator fun invoke(): Long {
-        val user: NewUserDataModel = sessionManager.getUser()
+        val user: UserDataModel = sessionManager.getUser()
 
         val now: LocalDateTime = LocalDateTime.now()
         val minusOnWeekDateTime = now.minusWeeks(1)

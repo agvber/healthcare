@@ -1,7 +1,5 @@
 package com.sessac.healthcare.domain.usecase
 
-import com.sessac.healthcare.data.datasource.GHistoryDataSource
-import com.sessac.healthcare.data.model.GHistoryDataModel
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

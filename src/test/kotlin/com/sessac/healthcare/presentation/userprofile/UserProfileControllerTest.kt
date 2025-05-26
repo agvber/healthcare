@@ -1,9 +1,5 @@
 package com.sessac.healthcare.presentation.userprofile
 
-import com.sessac.healthcare.data.datasource.impl.GHistoryDataSourceImpl
-import com.sessac.healthcare.data.datasource.impl.GUserDataSourceImpl
-import com.sessac.healthcare.data.model.GHistoryDataModel
-import com.sessac.healthcare.data.model.GUserDataModel
 import com.sessac.healthcare.presentation.userprofile.controller.UserProfileController
 import org.junit.jupiter.api.Test
 

@@ -6,9 +6,11 @@ interface UserDataSource {
 
     fun getUsers(): List<UserDataModel>
 
-    fun setUser(userDataModel: UserDataModel)
+    fun createUser(userDataModel: UserDataModel)
 
-    fun getUserById(id: Long): UserDataModel
+    fun getUserById(id: String): UserDataModel
 
     fun updateUser(userDataModel: UserDataModel)
+
+    fun deleteUser(id: String)
 }

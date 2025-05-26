@@ -1,9 +1,9 @@
 package com.sessac.healthcare.domain.usecase
 
-import com.sessac.healthcare.data.ds.UserDataSource
-import com.sessac.healthcare.data.ds.impl.UserDataSourceImpl
-import com.sessac.healthcare.domain.SessionManager
-import com.sessac.healthcare.domain.UserEntity
+import com.sessac.healthcare.data.datasource.UserDataSource
+import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
+import com.sessac.healthcare.domain.entites.SessionManager
+import com.sessac.healthcare.domain.entites.UserEntity
 import com.sessac.healthcare.domain.exception.SignupRequiredException
 
 class CheckLoginInformationUseCase(

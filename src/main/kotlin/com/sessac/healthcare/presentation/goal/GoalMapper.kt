@@ -1,14 +1,14 @@
 package com.sessac.healthcare.presentation.goal
 
-import com.sessac.healthcare.data.model.GHistoryDataModel
-import com.sessac.healthcare.data.model.GUserDataModel
+import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.home.utils.DistanceCalculatorUtil.calculateTotalGoalDistance
 import com.sessac.healthcare.presentation.home.utils.HealthUtil.calculateTreeGrowthStage
 
 class GoalMapper {
     fun dataModelToPresentation(
-        user: GUserDataModel,
-        histories: List<GHistoryDataModel>,
+        user: UserDataModel,
+        histories: List<HistoryDataModel>,
     ): GoalPresentationModel {
         val totalDistance = histories.sumOf { it.distanceWalked }
         val remainingBMIDistance = calculateTotalGoalDistance(user.height, user.weight) - totalDistance

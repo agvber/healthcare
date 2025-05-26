@@ -1,20 +1,20 @@
 package com.sessac.healthcare.data.model.fake
 
-import com.sessac.healthcare.data.model.GHistoryDataModel
+import com.sessac.healthcare.data.model.HistoryDataModel
 import java.time.LocalDateTime
 
-class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
-    override fun build(): List<GHistoryDataModel> {
+class DummyHistoryModels() : DummyModel<List<HistoryDataModel>>() {
+    override fun build(): List<HistoryDataModel> {
         return listOf(
-            GHistoryDataModel(
+            HistoryDataModel(
                 1,
-                1.toString(),
+                "mg",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 2000,
                 "공원에서 가볍게 산책"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 2,
                 1.toString(),
                 LocalDateTime.now().minusDays(2),
@@ -22,7 +22,7 @@ class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
                 5000,
                 "조깅 후 스트레칭"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 3,
                 1.toString(),
                 LocalDateTime.now().minusDays(3),
@@ -30,7 +30,7 @@ class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
                 3000,
                 "동네 한 바퀴 돌며 운동"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 4,
                 1.toString(),
                 LocalDateTime.now().minusDays(4),
@@ -38,7 +38,7 @@ class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
                 1000,
                 "계단 오르기"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 5,
                 1.toString(),
                 LocalDateTime.now().minusDays(5),
@@ -46,7 +46,7 @@ class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
                 4000,
                 "러닝 머신에서 달리기"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 6,
                 11.toString(),
                 LocalDateTime.now().minusDays(6),
@@ -54,7 +54,7 @@ class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
                 6000,
                 "강변에서 가벼운 조깅"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 7,
                 11.toString(),
                 LocalDateTime.now().minusDays(6),
@@ -62,7 +62,7 @@ class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
                 3000,
                 "빠른 걸음으로 출퇴근"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 8,
                 108.toString(),
                 LocalDateTime.now().minusDays(8),
@@ -70,7 +70,7 @@ class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
                 7000,
                 "헬스장에서 트레드밀 러닝"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 9,
                 109.toString(),
                 LocalDateTime.now().minusDays(9),
@@ -78,7 +78,7 @@ class DummyHistoryModels() : DummyModel<List<GHistoryDataModel>>() {
                 2000,
                 "산책하며 음악 감상"
             ),
-            GHistoryDataModel(
+            HistoryDataModel(
                 10,
                 110.toString(),
                 LocalDateTime.now().minusDays(10),

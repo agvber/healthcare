@@ -1,16 +1,16 @@
-package com.sessac.healthcare.domain
+package com.sessac.healthcare.domain.entites
 
-import com.sessac.healthcare.data.model.NewUserDataModel
+import com.sessac.healthcare.data.model.UserDataModel
 
 class SessionManager private constructor() {
 
-    private lateinit var loggedInUser: NewUserDataModel
+    private lateinit var loggedInUser: UserDataModel
 
-    fun getUser(): NewUserDataModel {
+    fun getUser(): UserDataModel {
         return loggedInUser
     }
 
-    fun setUser(user: NewUserDataModel) {
+    fun setUser(user: UserDataModel) {
         loggedInUser = user
     }
 

@@ -1,30 +1,34 @@
-package com.sessac.healthcare.data.ds.impl
+package com.sessac.healthcare.data.datasource.impl
 
-import com.sessac.healthcare.data.ds.HistoriesDataSource
-import com.sessac.healthcare.data.model.NewHistoryDataModel
+import com.sessac.healthcare.data.datasource.HistoriesDataSource
+import com.sessac.healthcare.data.model.HistoryDataModel
 import java.time.LocalDateTime
 
 object HistoriesDataSourceImpl : HistoriesDataSource {
 
 
-    override fun getUserHistories(userId: String): List<NewHistoryDataModel> {
+    override fun getUserHistories(userId: String): List<HistoryDataModel> {
         return dummyData.filter { it.userId == userId }
     }
 
-    override fun createUserHistory(newHistoryDataModel: NewHistoryDataModel) {
-        dummyData.add(newHistoryDataModel)
+    override fun createUserHistory(historyDataModel: HistoryDataModel) {
+        dummyData.add(historyDataModel)
     }
 
-    override fun updateUserHistory(newHistoryDataModel: NewHistoryDataModel) {
-        TODO("Not yet implemented")
+    override fun updateUserHistory(historyDataModel: HistoryDataModel) {
+        val index = dummyData.indexOfFirst {
+            it.historyId == historyDataModel.historyId
+        }
+        dummyData[index] = historyDataModel
     }
 
     override fun deleteUserHistory(id: Long) {
-        TODO("Not yet implemented")
+        dummyData.removeIf { it.historyId == id }
     }
 
+
     private val dummyData = mutableListOf(
-        NewHistoryDataModel(
+        HistoryDataModel(
             1L,
             "user1",
             LocalDateTime.of(2024, 5, 1, 8, 0),
@@ -32,7 +36,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             3000L,
             "Morning walk"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             2L,
             "user2",
             LocalDateTime.of(2024, 5, 2, 18, 0),
@@ -40,7 +44,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             2500L,
             "Evening stroll"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             3L,
             "user3",
             LocalDateTime.of(2024, 5, 3, 7, 30),
@@ -48,7 +52,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             3200L,
             "Walk to the park"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             4L,
             "user4",
             LocalDateTime.of(2024, 5, 4, 6, 0),
@@ -56,7 +60,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             2000L,
             "Quick jog"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             5L,
             "user1",
             LocalDateTime.of(2024, 5, 5, 20, 0),
@@ -64,7 +68,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             2800L,
             "Evening walk"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             6L,
             "user2",
             LocalDateTime.of(2024, 5, 6, 9, 0),
@@ -72,7 +76,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             3500L,
             "Weekend walk"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             7L,
             "user5",
             LocalDateTime.of(2024, 5, 7, 12, 0),
@@ -80,7 +84,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             1800L,
             "Lunch walk"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             8L,
             "user3",
             LocalDateTime.of(2024, 5, 8, 15, 0),
@@ -88,7 +92,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             1200L,
             "Short walk"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             9L,
             "user4",
             LocalDateTime.of(2024, 5, 9, 5, 45),
@@ -96,7 +100,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
             3100L,
             "Early morning walk"
         ),
-        NewHistoryDataModel(
+        HistoryDataModel(
             10L,
             "user1",
             LocalDateTime.of(2024, 5, 10, 19, 0),

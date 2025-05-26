@@ -1,6 +1,6 @@
 package com.sessac.healthcare.domain.usecase
 
-import com.sessac.healthcare.domain.SessionManager
+import com.sessac.healthcare.domain.entites.SessionManager
 import com.sessac.healthcare.domain.entites.ReportEntity
 import com.sessac.healthcare.domain.model.UserDomainModel
 
