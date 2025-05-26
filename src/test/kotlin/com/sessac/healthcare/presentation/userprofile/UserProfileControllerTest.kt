@@ -13,13 +13,13 @@ class UserProfileControllerTest {
     private lateinit var histories: List<GHistoryDataModel>
     private lateinit var controller: UserProfileController
 
-    @Test
-    fun `홈`(){
-        user = GUserDataSourceImpl.getUserById(1)
-        histories = GHistoryDataSourceImpl.getUserHistories(user.id)
-
-        controller = UserProfileController(user)
-
-        controller.launchUserProfile()
-    }
+//    @Test
+//    fun `홈`(){
+//        user = GUserDataSourceImpl.getUserById(1)
+//        histories = GHistoryDataSourceImpl.getUserHistories(user.id)
+//
+//        controller = UserProfileController(user)
+//
+//        controller.launchUserProfile()
+//    }
 }

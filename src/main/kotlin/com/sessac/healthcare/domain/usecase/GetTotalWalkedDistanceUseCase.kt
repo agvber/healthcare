@@ -1,13 +1,18 @@
 package com.sessac.healthcare.domain.usecase
 
-import com.sessac.healthcare.data.datasource.GHistoryDataSource
-import com.sessac.healthcare.data.datasource.impl.GHistoryDataSourceImpl
+
+import com.sessac.healthcare.data.ds.HistoriesDataSource
+import com.sessac.healthcare.data.ds.impl.HistoriesDataSourceImpl
+import com.sessac.healthcare.data.model.NewUserDataModel
+import com.sessac.healthcare.domain.SessionManager
 
 class GetTotalWalkedDistanceUseCase(
-    private val GHistoryDataSource: GHistoryDataSource = GHistoryDataSourceImpl
+    private val historiesDataSource: HistoriesDataSource = HistoriesDataSourceImpl,
+    private val sessionManager: SessionManager = SessionManager.getInstance()
 ) {
     operator fun invoke(): Long {
-        val histories = GHistoryDataSource.getUserHistories("0") // 유저 정보 가져오기
+        val user: NewUserDataModel = sessionManager.getUser()
+        val histories = historiesDataSource.getUserHistories(user.userId) // 유저 정보 가져오기
         return histories.sumOf { it.distanceWalked }
     }
 }
