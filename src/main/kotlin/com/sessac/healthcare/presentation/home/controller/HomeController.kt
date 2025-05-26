@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.home.controller
 
-import com.sessac.healthcare.data.datasource.impl.GHistoryDataSourceImpl
+import com.sessac.healthcare.data.datasource.impl.HistoriesDataSourceImpl
 import com.sessac.healthcare.data.model.GHistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.common.ViewController
@@ -38,7 +38,7 @@ class HomeController(
         when (val menu = HomeView.testMenu().trim()) {
             "1" -> OnboardingController().run()
             "2" -> LoginController().run()
-            "3" -> RecordController(user, GHistoryDataSourceImpl).run()
+            "3" -> RecordController(user, HistoriesDataSourceImpl).run()
             "4" -> UserProfileController(user).run()
             "5" -> ReportController().run()
             "exit" -> exitProcess(0)
