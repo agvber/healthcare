@@ -1,6 +1,6 @@
 package com.sessac.healthcare.domain.entity
 
-import com.sessac.healthcare.domain.UserEntity
+import com.sessac.healthcare.domain.entites.UserEntity
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.junit5.JUnit5Asserter

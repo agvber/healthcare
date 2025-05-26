@@ -1,7 +1,5 @@
 package com.sessac.healthcare.presentation.home
 
-import com.sessac.healthcare.data.model.HistoryDataModel
-import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.home.controller.HomeController
 import com.sessac.healthcare.presentation.home.ui.HomeView
 import org.junit.jupiter.api.Test

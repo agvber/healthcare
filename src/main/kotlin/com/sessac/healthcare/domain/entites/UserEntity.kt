@@ -1,4 +1,4 @@
-package com.sessac.healthcare.domain
+package com.sessac.healthcare.domain.entites
 
 class UserEntity {
 

@@ -1,14 +1,19 @@
 package com.sessac.healthcare.presentation.goal
 
+import com.sessac.healthcare.data.datasource.impl.HistoriesDataSourceImpl
 import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
-import com.sessac.healthcare.data.model.NewHistoryDataModel
-import com.sessac.healthcare.data.model.NewUserDataModel
+import com.sessac.healthcare.domain.entites.SessionManager
 import com.sessac.healthcare.presentation.common.ViewController
 
-class GoalController(private val user: NewUserDataModel, private val userRecords: List<NewHistoryDataModel>) : ViewController {
+class GoalController : ViewController {
     private lateinit var goalView: GoalView
     private lateinit var goalMapper: GoalMapper
     private lateinit var presentationModel: GoalPresentationModel
+
+    private val sessionManager = SessionManager.getInstance()
+    private val user = sessionManager.getUser()
+    private val historyDataSource = HistoriesDataSourceImpl
+    private val userRecords = historyDataSource.getUserHistories(user.userId)
 
     override fun run() {
         goalMapper = GoalMapper()

@@ -1,12 +1,12 @@
 package com.sessac.healthcare.presentation.userprofile
 
-import com.sessac.healthcare.data.model.NewUserDataModel
+import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.userprofile.model.UserProfileUIModel
 
 object UserProfileUIMapper {
 
     fun mapToUserProfileUIModel(
-        user: NewUserDataModel
+        user: UserDataModel
     ): UserProfileUIModel = UserProfileUIModel(
         nickName = user.nickname,
         height = user.height,
@@ -16,8 +16,8 @@ object UserProfileUIMapper {
     // UIModel을 DataModel로 변환
     fun mapToUserDataModel(
         uiModel: UserProfileUIModel,
-        dataModel: NewUserDataModel
-    ) = NewUserDataModel(
+        dataModel: UserDataModel
+    ) = UserDataModel(
         userId = dataModel.userId,
         nickname = uiModel.nickName,
         height = uiModel.height,

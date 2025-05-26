@@ -1,10 +1,10 @@
 package com.sessac.healthcare.domain.usecase
 
-import com.sessac.healthcare.data.ds.UserDataSource
-import com.sessac.healthcare.data.ds.impl.UserDataSourceImpl
-import com.sessac.healthcare.data.model.NewUserDataModel
-import com.sessac.healthcare.domain.SessionManager
-import com.sessac.healthcare.domain.UserEntity
+import com.sessac.healthcare.data.datasource.UserDataSource
+import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
+import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.domain.entites.SessionManager
+import com.sessac.healthcare.domain.entites.UserEntity
 import com.sessac.healthcare.domain.exception.IdExistException
 
 class RegisterUserInformationUseCase(
@@ -29,7 +29,7 @@ class RegisterUserInformationUseCase(
             throw IdExistException()
         }
 
-        val user = NewUserDataModel(
+        val user = UserDataModel(
             userId = id,
             password = password,
             nickname = nickname,
@@ -39,7 +39,7 @@ class RegisterUserInformationUseCase(
             dailyGoalDistance = 0,
             weeklyGoalDistance = 0
         )
-        userDataSource.createUser(newUserDataModel = user)
+        userDataSource.createUser(userDataModel = user)
         sessionManager.setUser(user)
     }
 

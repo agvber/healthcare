@@ -1,10 +1,10 @@
 package com.sessac.healthcare.presentation.goal
 
-import com.sessac.healthcare.data.model.NewUserDataModel
+import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.home.model.TreeGrowthStage
 
 class GoalView {
-    fun printGoalDefaultMessage(user: NewUserDataModel) {
+    fun printGoalDefaultMessage(user: UserDataModel) {
         println("\n========${user.nickname}님의 운동 목표\n==========")
     }
 
@@ -13,7 +13,7 @@ class GoalView {
         println("목표 달성으로 자라는 트리입니다. 현재 <<${tree.stage}>> 단계입니다.")
     }
 
-    fun printGoal(user: NewUserDataModel) {
+    fun printGoal(user: UserDataModel) {
         println("\n- 총 목표 거리: ${user.goalDistance}")
         println("- 주간 목표 거리: ${user.weeklyGoalDistance}")
         println("- 일간 목표 거리: ${user.dailyGoalDistance}")
