@@ -1,12 +1,12 @@
 package com.sessac.healthcare.presentation.record
 
-import com.sessac.healthcare.data.model.GHistoryDataModel
+import com.sessac.healthcare.data.model.NewHistoryDataModel
 import com.sessac.healthcare.data.utils.fileDateFormat
 import com.sessac.healthcare.data.utils.toLocalDateTime
 import java.time.Duration
 
 class RecordMapper {
-    fun historyDataModelToPresentation(history: GHistoryDataModel): RecordPresentationModel {
+    fun historyDataModelToPresentation(history: NewHistoryDataModel): RecordPresentationModel {
         val duration = Duration.between(history.startDateTime, history.endDateTime)
         val hours = duration.toHours()
         val minutes = duration.toMinutesPart()
@@ -20,10 +20,10 @@ class RecordMapper {
             memo = history.memo
         )
     }
-        fun stringToHistoryDataModel(value: String, userId: String, lastPk: Long): GHistoryDataModel {
+        fun stringToHistoryDataModel(value: String, userId: String, lastPk: Long): NewHistoryDataModel {
         val record = value.split(",")
-        return GHistoryDataModel(
-            pk = lastPk + 1,
+        return NewHistoryDataModel(
+            historyId = lastPk + 1,
             userId = userId,
             startDateTime = record[0].trim().toLocalDateTime(),
             endDateTime = record[1].trim().toLocalDateTime(),
