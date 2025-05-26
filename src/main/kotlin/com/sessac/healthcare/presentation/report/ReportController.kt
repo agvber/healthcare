@@ -19,13 +19,13 @@ class ReportController : ViewController {
     override fun run() {
         initProgram()
         initUseCase()
+        loadInitData()
         inputOptionNumber()
         processMain()
     }
 
     private fun initProgram() {
         reportView = ReportView()
-        loadInitData()
     }
 
     private fun initUseCase() {
