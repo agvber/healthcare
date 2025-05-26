@@ -11,7 +11,7 @@ package com.sessac.healthcare.presentation.home.model
  * @property lifeExtension 수명 연장
  */
 data class HomeUIModel(
-    val id: Long,
+    val id: String,
     var nickName: String,
     var bmi: Float,
     var defaultGoalDistance: Long,
