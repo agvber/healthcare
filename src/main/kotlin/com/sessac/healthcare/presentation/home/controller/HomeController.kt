@@ -1,28 +1,27 @@
 package com.sessac.healthcare.presentation.home.controller
 
-import com.sessac.healthcare.data.datasource.impl.HistoriesDataSourceImpl
 import com.sessac.healthcare.data.model.HistoryDataModel
-import com.sessac.healthcare.domain.entites.SessionManager
+import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.domain.usecase.GetLoggedInUserUseCase
+import com.sessac.healthcare.domain.usecase.GetUserHistoriesUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.common.loop
-import com.sessac.healthcare.presentation.goal.GoalController
+import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuHandler
 import com.sessac.healthcare.presentation.home.HomeUIMapper
+import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuListener
 import com.sessac.healthcare.presentation.home.model.HomeCalculatedModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 import com.sessac.healthcare.presentation.home.ui.HomeView
 import com.sessac.healthcare.presentation.home.utils.DistanceCalculatorUtil
 import com.sessac.healthcare.presentation.home.utils.HealthUtil
-import com.sessac.healthcare.presentation.record.RecordController
-import com.sessac.healthcare.presentation.report.ReportController
-import com.sessac.healthcare.presentation.userprofile.controller.UserProfileController
-import kotlin.system.exitProcess
 
 class HomeController : ViewController {
+    private val menuListener: HomeMenuListener = HomeMenuHandler()
+    private val getLoggedInUser = GetLoggedInUserUseCase()
+    private val getUserHistories = GetUserHistoriesUseCase()
 
-    private val sessionManager: SessionManager = SessionManager.getInstance()
-    private val user = sessionManager.getUser()
-    private val histories: List<HistoryDataModel> = HistoriesDataSourceImpl.getUserHistories(user.userId)
-
+    private lateinit var user: UserDataModel
+    private lateinit var histories: List<HistoryDataModel>
     private lateinit var homeUIModel: HomeUIModel
 
     override fun run() {
@@ -30,6 +29,8 @@ class HomeController : ViewController {
     }
 
     private fun launchHome() {
+        user = getLoggedInUser()
+        histories = getUserHistories(user.userId)
 
         homeUIModel = HomeUIMapper.mapToHomeUIModel(user, calculateHomeData())
         HomeView.displayHomeHeader()
@@ -37,25 +38,13 @@ class HomeController : ViewController {
         HomeView.displayDistanceInfo(homeUIModel)
 
         when (val menu = HomeView.displayMenu().trim()) {
-            "1" -> RecordController().run()
-            "2" -> GoalController().run()
-            "3" -> ReportController().run()
-            "4" -> UserProfileController(user).run()
-            "5" -> ReportController().run()
-            "exit" -> exitProcess(0)
-            else -> println("메뉴 선택을 제대로 입력하세요.")
+            "1" -> menuListener.onSelectRecord()
+            "2" -> menuListener.onSelectGoal()
+            "3" -> menuListener.onSelectReport()
+            "4" -> menuListener.onSelectUserInfo()
+            "0" -> menuListener.onExit()
+            else -> menuListener.onInvalidInput()
         }
-
-//        when (val menu = HomeView.displayMenu().trim()) {
-//            "1" -> menuListener.onSelectRecord()
-//            "2" -> menuListener.onSelectGoal()
-//            "3" -> menuListener.onSelectUserInfo()
-//            "exit" -> {
-//                menuListener.onExit()
-//                return
-//            }
-//            else -> menuListener.onInvalidInput()
-//        }
     }
 
     private fun calculateHomeData(): HomeCalculatedModel {
