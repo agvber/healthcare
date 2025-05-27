@@ -2,10 +2,14 @@ package com.sessac.healthcare.data.utils
 
 import com.sessac.healthcare.common.anontation.ExperimentalFeatureApi
 import java.time.LocalDateTime
-import kotlin.collections.associateWith
 import kotlin.reflect.KClass
+import kotlin.reflect.KParameter
+import kotlin.reflect.KType
+import kotlin.reflect.full.findParameterByName
+import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.primaryConstructor
+import kotlin.reflect.jvm.jvmErasure
 
 class FileParsingUtil {
 
@@ -24,23 +28,46 @@ class FileParsingUtil {
     }
 
     @ExperimentalFeatureApi()
-    // ToDo: parameters type check 문제가 존재 해결 할 것
-    fun <T : Any> parseToObj(value: String, clazz: KClass<T>): T? {
-        val valueMap: Map<String, Any?> = parseToObj(value)
-        val constructor = clazz.primaryConstructor ?: return null
-        val args = constructor.parameters.associateWith { kParameter ->
-            val arg = valueMap[kParameter.name]
-            when (kParameter.type.classifier) {
-                Int::class -> arg.toString().toInt()
-                Double::class -> arg.toString().toDouble()
-                Float::class -> arg.toString().toFloat()
-                Long::class -> arg.toString().toLong()
-                String::class -> arg.toString()
-                else -> value
+    fun <T : Any> parseToObj(value: String, clazz: KClass<T>): T {
+        val constructor = clazz.primaryConstructor!!
+        val objMap: Map<KParameter, Any?> =
+            value.removePrefix("<")
+                .removeSuffix("/>")
+                .split(",")
+                .associate { keyWithValue: String ->
+                    val keyWithValueSplit: List<String> = keyWithValue.split(":")
+                    val key: String = keyWithValueSplit[0].drop(1).dropLast(1)
+                    val value: String? = runCatching { keyWithValueSplit[1].drop(1).dropLast(1) }.getOrNull()
+                    val parameter = constructor.findParameterByName(key)
+                    parameter!! to value?.let { convertStringToType(it, parameter.type) }
+                }
+        return constructor.callBy(objMap)
+    }
+
+    private fun convertStringToType(value: String, type: KType): Any? {
+        val kClass = type.jvmErasure
+
+        return when (kClass) {
+            String::class -> value
+            Int::class -> value.toIntOrNull()
+            Long::class -> value.toLongOrNull()
+            Double::class -> value.toDoubleOrNull()
+            Float::class -> value.toFloatOrNull()
+            Boolean::class -> value.toBooleanStrictOrNull()
+            Short::class -> value.toShortOrNull()
+            Byte::class -> value.toByteOrNull()
+            Char::class -> value.singleOrNull()
+            else -> {
+                // Enum 처리
+                if (kClass.isSubclassOf(Enum::class)) {
+                    kClass.java.enumConstants?.firstOrNull { (it as Enum<*>).name == value }
+                } else {
+                    value
+                }
             }
         }
-        return constructor.callBy(args)
     }
+
 
     fun formatString(map: Map<String, Any?>): String {
         val stringBuilder: StringBuilder = StringBuilder("<")
