@@ -36,7 +36,7 @@ object UserProfileView {
         println("$field 수정에 실패했습니다. 이유: 잘못된 입력입니다.")
     }
 
-    fun displayInputWrong() {
+    fun displayWrongInput() {
         println("잘못된 입력입니다.")
     }
 

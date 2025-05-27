@@ -32,7 +32,7 @@ class UserProfileController(
                     saveUserProfile()
                     return
                 }
-                else -> UserProfileView.displayInputWrong()
+                else -> UserProfileView.displayWrongInput()
             }
         }
     }
