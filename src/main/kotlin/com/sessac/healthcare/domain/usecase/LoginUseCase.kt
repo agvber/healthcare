@@ -6,7 +6,7 @@ import com.sessac.healthcare.domain.entites.SessionManager
 import com.sessac.healthcare.domain.entites.UserEntity
 import com.sessac.healthcare.domain.exception.SignupRequiredException
 
-class CheckLoginInformationUseCase(
+class LoginUseCase(
     private val userEntity: UserEntity = UserEntity(),
     private val userDataSource: UserDataSource = UserDataSourceImpl,
     private val sessionManager: SessionManager = SessionManager.getInstance()
