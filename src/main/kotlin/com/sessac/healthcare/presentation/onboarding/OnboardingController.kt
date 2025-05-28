@@ -1,6 +1,7 @@
 package com.sessac.healthcare.presentation.onboarding
 
 import com.sessac.healthcare.common.utils.printStackTraceWithDebugMode
+import com.sessac.healthcare.domain.exception.IdExistException
 import com.sessac.healthcare.domain.usecase.RegisterUserInformationUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 
@@ -30,7 +31,11 @@ class OnboardingController : ViewController {
             registerUser()
         } catch (e: Exception) {
             e.printStackTraceWithDebugMode()
-            onboardingView.printUserInformationInvalidError()
+            if (e is IdExistException) {
+                onboardingView.printIdExistError()
+            } else {
+                onboardingView.printUserInformationInvalidError()
+            }
             inputUserInformation()
         }
     }
