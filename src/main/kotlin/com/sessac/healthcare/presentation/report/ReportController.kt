@@ -31,7 +31,7 @@ class ReportController : ViewController {
         reportPresentationModel.consoleMainOption != 0
 
     private fun initProgram() {
-        reportView = ReportView()
+        reportView = ReportView
     }
 
     private fun initUseCase() {
@@ -72,10 +72,10 @@ class ReportController : ViewController {
 
     private fun processMain() {
         when (reportPresentationModel.consoleMainOption) {
-            1 -> processWalkedDistance()
-            2 -> processCarbonReduction()
-            3 -> processUserSevenWeekStepCount()
-            4 -> processUserHealthInformation()
+            WALKED_DISTANCE_NUMBER -> processWalkedDistance()
+            CARBON_REDUCTION_NUMBER -> processCarbonReduction()
+            SEVEN_WEEK_STEP_COUNT_NUMBER -> processUserSevenWeekStepCount()
+            HEALTH_INFORMATION_NUMBER -> processUserHealthInformation()
         }
     }
 
@@ -123,5 +123,10 @@ class ReportController : ViewController {
 
     companion object {
         private val mainOptionRange: IntRange = 0..4
+
+        private const val WALKED_DISTANCE_NUMBER = 1
+        private const val CARBON_REDUCTION_NUMBER = 2
+        private const val SEVEN_WEEK_STEP_COUNT_NUMBER = 3
+        private const val HEALTH_INFORMATION_NUMBER = 4
     }
 }

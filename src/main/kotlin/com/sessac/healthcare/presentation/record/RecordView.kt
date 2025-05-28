@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.record
 
-class RecordView {
+object RecordView {
     fun printRecordDefaultMessage() {
         println("\n==================================")
         println("운동 기록")

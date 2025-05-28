@@ -4,6 +4,7 @@ import com.sessac.healthcare.domain.usecase.GetLoggedInUserUseCase
 import com.sessac.healthcare.domain.usecase.UpdateUserProfileUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.userprofile.UserProfileUIMapper
+import com.sessac.healthcare.presentation.userprofile.editField
 import com.sessac.healthcare.presentation.userprofile.model.Edit
 import com.sessac.healthcare.presentation.userprofile.model.UserProfileUIModel
 import com.sessac.healthcare.presentation.userprofile.ui.UserProfileView
@@ -25,10 +26,10 @@ class UserProfileController(
         while (true) {
             UserProfileView.displayUserInfo(userProfileUIModel)
             when (UserProfileView.displayEditMenu()) {
-                "1" -> editNickName()
-                "2" -> editHeight()
-                "3" -> editWeight()
-                "0" -> {
+                NICKNAME_EDIT_NUMBER -> editNickName()
+                HEIGHT_EDIT_NUMBER -> editHeight()
+                WEIGHT_EDIT_NUMBER -> editWeight()
+                EXIT_NUMBER -> {
                     saveUserProfile()
                     return
                 }
@@ -47,9 +48,7 @@ class UserProfileController(
     private fun editNickName() {
         editField(
             fieldName = Edit.NAME.fieldName,
-            inputTransform = { input ->
-                if (input.isNotEmpty()) input else null
-            }
+            inputTransform = { input -> input.ifEmpty { null } }
         ) { newValue ->
             userProfileUIModel.nickName = newValue
         }
@@ -77,16 +76,10 @@ class UserProfileController(
         }
     }
 
-    private inline fun <T> editField(
-        fieldName: String,
-        inputTransform: (String) -> T?,
-        applyChange: (T) -> Unit,
-    ) {
-        UserProfileView.inputNewValue(fieldName)
-            .trim()
-            .let(inputTransform)
-            ?.also { applyChange(it) }
-            ?.let { UserProfileView.displayUpdateSuccess(fieldName) }
-            ?: UserProfileView.displayUpdateFailure(fieldName)
+    companion object {
+        private const val NICKNAME_EDIT_NUMBER = "1"
+        private const val HEIGHT_EDIT_NUMBER = "2"
+        private const val WEIGHT_EDIT_NUMBER = "3"
+        private const val EXIT_NUMBER = "0"
     }
 }

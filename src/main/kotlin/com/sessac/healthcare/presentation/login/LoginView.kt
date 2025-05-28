@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.login
 
-class LoginView {
+object LoginView {
 
     fun inputMainOption(): String? {
         println(

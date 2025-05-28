@@ -23,20 +23,20 @@ class LoginController : ViewController {
     }
 
     private fun initProgram() {
-        loginView = LoginView()
+        loginView = LoginView
         loginUseCase = LoginUseCase()
     }
 
     private fun inputMainOption(): Unit = try {
         val selectedOption = loginView.inputMainOption()?.trim()?.toIntOrNull() ?: throw IllegalArgumentException()
         when (selectedOption) {
-            1 -> inputLoginAccountInformation()
-            2 -> {
+            LOGIN_NUMBER -> inputLoginAccountInformation()
+            ONBOARDING_NUMBER -> {
                 onboardingController.run()
                 inputMainOption()
             }
 
-            0 -> {
+            EXIT_NUMBER -> {
                 SaveProgramDataUseCase().invoke()
                 exitProcess(0)
             }
@@ -64,5 +64,9 @@ class LoginController : ViewController {
 
     companion object {
         private const val LOGIN_ERROR_MESSAGE: String = "LoginFormatError"
+
+        private const val LOGIN_NUMBER = 1
+        private const val ONBOARDING_NUMBER = 2
+        private const val EXIT_NUMBER = 0
     }
 }

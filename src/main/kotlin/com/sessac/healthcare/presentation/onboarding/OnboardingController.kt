@@ -18,7 +18,7 @@ class OnboardingController : ViewController {
     }
 
     private fun initProgram() {
-        onboardingView = OnboardingView()
+        onboardingView = OnboardingView
         onboardingMapper = OnboardingMapper()
         registerUserInformationUseCase = RegisterUserInformationUseCase()
         onboardingView.printWelcomeMessage()

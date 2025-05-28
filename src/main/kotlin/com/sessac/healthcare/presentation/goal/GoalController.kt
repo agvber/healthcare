@@ -22,7 +22,7 @@ class GoalController : ViewController {
     override fun run() {
         goalMapper = GoalMapper()
         presentationModel = goalMapper.dataModelToPresentation(user, userRecords)
-        goalView = GoalView()
+        goalView = GoalView
         showGoalScreen()
         handleUserInput()
     }
@@ -36,17 +36,18 @@ class GoalController : ViewController {
 
     private fun handleUserInput() {
         when (goalView.askWantToInsertGoal()) {
-            "1" -> handleGoalInsertion()
-            "0" -> return // 이전 화면으로 이동
+            INSERT_GOAL_NUMBER -> handleGoalInsertion()
+            BACK_NUMBER -> return // 이전 화면으로 이동
             else -> goalView.printInvalidInputMessage()
+
         }
     }
 
     private fun handleGoalInsertion() {
         when (goalView.askGoalDistance()) {
-            "1" -> insertTotalGoalDistance()
-            "2" -> insertWeeklyGoalDistance()
-            "3" -> insertDailyGoalDistance()
+            TOTAL_GOAL_DISTANCE_NUMBER -> insertTotalGoalDistance()
+            WEEKLY_GOAL_DISTANCE_NUMBER -> insertWeeklyGoalDistance()
+            DAILY_GOAL_DISTANCE_NUMBER -> insertDailyGoalDistance()
             else -> goalView.printInvalidInputMessage()
         }
     }
@@ -73,5 +74,15 @@ class GoalController : ViewController {
         updateUserProfileUseCase(updatedUser)
         goalView.printUpdateGoal()
         goalView.printGoal(updatedUser)
+    }
+
+    companion object {
+        private const val INSERT_GOAL_NUMBER = "1"
+        private const val BACK_NUMBER = "0"
+
+        private const val TOTAL_GOAL_DISTANCE_NUMBER = "1"
+        private const val WEEKLY_GOAL_DISTANCE_NUMBER = "2"
+        private const val DAILY_GOAL_DISTANCE_NUMBER = "3"
+
     }
 }

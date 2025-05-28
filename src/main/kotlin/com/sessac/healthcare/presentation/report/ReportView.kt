@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.report
 
-class ReportView {
+object ReportView {
 
     fun inputOption(): Int? {
         print(

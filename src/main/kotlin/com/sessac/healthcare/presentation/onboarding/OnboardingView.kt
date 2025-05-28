@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.onboarding
 
-class OnboardingView {
+object OnboardingView {
 
     fun printWelcomeMessage() {
         println("헬스 케어에 오신것을 환영합니다.")

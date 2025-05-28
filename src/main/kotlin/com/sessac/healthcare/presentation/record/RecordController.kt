@@ -17,7 +17,7 @@ class RecordController : ViewController {
     private lateinit var userRecords: List<HistoryDataModel>
 
     override fun run() {
-        recordView = RecordView()
+        recordView = RecordView
         recordMapper = RecordMapper()
         showUserRecords()
         handleUserInput()
@@ -34,8 +34,8 @@ class RecordController : ViewController {
 
     private fun handleUserInput() {
         when (recordView.askWantToRecord()) {
-            "1" -> handleRecordInsertion()
-            "0" -> return // 이전 화면으로 이동
+            HANDLE_INSERTION -> handleRecordInsertion()
+            EXIT_UMBER -> return // 이전 화면으로 이동
             else -> recordView.printInvalidInputMessage()
         }
     }
@@ -53,6 +53,11 @@ class RecordController : ViewController {
         } catch (e: Exception) {
             recordView.printRecordFailureMessage(e.message ?: "알 수 없는 오류가 발생했습니다.")
         }
+    }
+
+    companion object {
+        private const val HANDLE_INSERTION = "1"
+        private const val EXIT_UMBER = "0"
     }
 
 }

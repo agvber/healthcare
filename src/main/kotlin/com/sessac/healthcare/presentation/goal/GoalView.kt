@@ -3,7 +3,7 @@ package com.sessac.healthcare.presentation.goal
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.home.model.TreeGrowthStage
 
-class GoalView {
+object GoalView {
     fun printGoalDefaultMessage(user: UserDataModel) {
         println("\n========${user.nickname}님의 운동 목표\n==========")
     }

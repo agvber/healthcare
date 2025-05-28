@@ -39,11 +39,11 @@ class HomeController : ViewController {
         HomeView.displayDistanceInfo(homeUIModel)
 
         when (HomeView.displayMenu().trim()) {
-            "1" -> menuListener.onSelectRecord()
-            "2" -> menuListener.onSelectGoal()
-            "3" -> menuListener.onSelectReport()
-            "4" -> menuListener.onSelectUserInfo()
-            "0" -> {
+            RECORD_NUMBER -> menuListener.onSelectRecord()
+            GOAL_NUMBER -> menuListener.onSelectGoal()
+            REPORT_NUMBER -> menuListener.onSelectReport()
+            USER_INFO_NUMBER -> menuListener.onSelectUserInfo()
+            EXIT_NUMBER -> {
                 SaveProgramDataUseCase().invoke()
                 menuListener.onExit()
             }
@@ -68,6 +68,15 @@ class HomeController : ViewController {
             lifeExtension = lifeExtension,
             userTotalDistance = userTotalDistance
         )
+    }
+
+    companion object {
+        private const val RECORD_NUMBER = "1"
+        private const val GOAL_NUMBER = "2"
+        private const val REPORT_NUMBER = "3"
+        private const val USER_INFO_NUMBER = "4"
+        private const val EXIT_NUMBER = "0"
+
 
     }
 }

@@ -13,7 +13,7 @@ import kotlin.reflect.jvm.jvmErasure
 
 class FileParsingUtil {
 
-    fun parseToObj(value: String): Map<String, Any?> {
+    fun parseToObj(value: String): Map<String, String?> {
         val result: MutableMap<String, String> = mutableMapOf()
         value.removePrefix("<")
             .removeSuffix("/>")
@@ -59,7 +59,6 @@ class FileParsingUtil {
             Char::class -> value.singleOrNull()
             LocalDateTime::class -> LocalDateTime.parse(value, fileDateFormat)
             else -> {
-                // Enum 처리
                 if (kClass.isSubclassOf(Enum::class)) {
                     kClass.java.enumConstants?.firstOrNull { (it as Enum<*>).name == value }
                 } else {
@@ -68,7 +67,6 @@ class FileParsingUtil {
             }
         }
     }
-
 
     fun formatString(map: Map<String, Any?>): String {
         val stringBuilder: StringBuilder = StringBuilder("<")
