@@ -14,6 +14,6 @@ class OnboardingView {
     }
 
     fun printUserInformationInvalidError() {
-        println("정보를 잘못 입력하셨습니다 다시 시도해주세요.")
+        println("입력 형식이 올바르지 않습니다 다시 시도해주세요.")
     }
 }
