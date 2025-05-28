@@ -1,6 +1,7 @@
 package com.sessac.healthcare.presentation.onboarding
 
 import com.sessac.healthcare.common.utils.printStackTraceWithDebugMode
+import com.sessac.healthcare.domain.exception.IdExistException
 import com.sessac.healthcare.domain.usecase.RegisterUserInformationUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 
@@ -27,19 +28,25 @@ class OnboardingController : ViewController {
         try {
             val userInformationString: String = onboardingView.inputUserInformation()
             onboardingPresentationModel = onboardingMapper.stringToOnboardingPresentationModel(userInformationString)
-                .also {
-                    registerUserInformationUseCase(
-                        id = it.id,
-                        password = it.password,
-                        nickname = it.nickname,
-                        height = it.height,
-                        weight = it.weight
-                    )
-                }
+            registerUser()
         } catch (e: Exception) {
             e.printStackTraceWithDebugMode()
-            onboardingView.printUserInformationInvalidError()
+            if (e is IdExistException) {
+                onboardingView.printIdExistError()
+            } else {
+                onboardingView.printUserInformationInvalidError()
+            }
             inputUserInformation()
         }
+    }
+
+    private fun registerUser() = with(onboardingPresentationModel) {
+        registerUserInformationUseCase(
+            id = id,
+            password = password,
+            nickname = nickname,
+            height = height,
+            weight = weight
+        )
     }
 }
