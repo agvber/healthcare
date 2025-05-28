@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.login
 
-import com.sessac.healthcare.domain.usecase.CheckLoginInformationUseCase
+import com.sessac.healthcare.domain.usecase.LoginUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.common.loop
 import com.sessac.healthcare.presentation.home.controller.HomeController
@@ -11,7 +11,7 @@ class LoginController : ViewController {
 
     private lateinit var loginView: LoginView
     private lateinit var loginPresentationModel: LoginPresentationModel
-    private lateinit var checkLoginInformationUseCase: CheckLoginInformationUseCase
+    private lateinit var loginUseCase: LoginUseCase
 
     private var mainOption: Int = 0
 
@@ -25,7 +25,7 @@ class LoginController : ViewController {
 
     private fun initProgram() {
         loginView = LoginView()
-        checkLoginInformationUseCase = CheckLoginInformationUseCase()
+        loginUseCase = LoginUseCase()
     }
 
     private fun inputMainOption() {
@@ -47,9 +47,8 @@ class LoginController : ViewController {
         try {
             val id = loginView.inputId()
             val password = loginView.inputPassword()
-            loginPresentationModel = LoginPresentationModel(id, password)
-            loginPresentationModel.let {
-                checkLoginInformationUseCase(it.id, it.password)
+            loginPresentationModel = LoginPresentationModel(id, password).also {
+                loginUseCase(it.id, it.password)
             }
             HomeController().run()
         } catch (e: Exception) {
