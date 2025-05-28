@@ -29,9 +29,18 @@ class FileParsingUtilUnitTest {
     }
 
     @Test
-    fun readTest() {
+    fun parseMapTest() {
         val result = fileParsingUtil.parseToObj(testStr)
         Assertions.assertEquals(testMap.toString(), result.toString())
+    }
+
+    @OptIn(ExperimentalFeatureApi::class)
+    @Test
+    fun parseObjTest() {
+        val userFormatString = "<\"age\":\"12\",\"name\":\"MJ\"/>"
+        val user = User("MJ", 12)
+        val result = fileParsingUtil.parseToObj(userFormatString, User::class)
+        Assertions.assertEquals(user, result)
     }
 
     @OptIn(ExperimentalFeatureApi::class)

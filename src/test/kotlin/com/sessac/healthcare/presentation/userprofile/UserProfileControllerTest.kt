@@ -1,12 +1,13 @@
 package com.sessac.healthcare.presentation.userprofile
 
+import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.presentation.userprofile.controller.UserProfileController
-import org.junit.jupiter.api.Test
 
 class UserProfileControllerTest {
 
-    private lateinit var user: GUserDataModel
-    private lateinit var histories: List<GHistoryDataModel>
+    private lateinit var user: UserDataModel
+    private lateinit var histories: List<HistoryDataModel>
     private lateinit var controller: UserProfileController
 
 //    @Test
