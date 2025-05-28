@@ -2,7 +2,7 @@ package com.sessac.healthcare.presentation.login
 
 class LoginView {
 
-    fun inputMainOption(): String {
+    fun inputMainOption(): String? {
         println(
             """
             안녕하세요. 헬스케어 콘솔 프로젝트에 오신 것을 환영합니다.
@@ -11,21 +11,21 @@ class LoginView {
         """.trimIndent()
         )
         print("입력): ")
-        return readLine()!!
+        return readLine()
     }
 
     fun printOptionSelectError() {
         println("해당 옵션은 존재하지 않습니다 다시입력하여주세요.")
     }
 
-    fun inputId(): String {
+    fun inputId(): String? {
         print("아이디를 입력하여주세요: ")
-        return readLine()!!
+        return readLine()
     }
 
-    fun inputPassword(): String {
+    fun inputPassword(): String? {
         print("비밀번호를 입력하여주세요: ")
-        return readLine()!!
+        return readLine()
     }
 
     fun printLoginErrorMessage() {
