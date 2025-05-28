@@ -1,22 +1,26 @@
 package com.sessac.healthcare.presentation.userprofile.controller
 
-import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
-import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.domain.usecase.GetLoggedInUserUseCase
+import com.sessac.healthcare.domain.usecase.UpdateUserProfileUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.userprofile.UserProfileUIMapper
+import com.sessac.healthcare.presentation.userprofile.model.Edit
 import com.sessac.healthcare.presentation.userprofile.model.UserProfileUIModel
 import com.sessac.healthcare.presentation.userprofile.ui.UserProfileView
 
 class UserProfileController(
-    private val user: UserDataModel,
 ) : ViewController {
+    private val getLoggedInUser = GetLoggedInUserUseCase()
+    private val updateUserProfile = UpdateUserProfileUseCase()
+    private val user = getLoggedInUser()
+
     private lateinit var userProfileUIModel: UserProfileUIModel
 
     override fun run() {
         launchUserProfile()
     }
 
-    fun launchUserProfile() {
+    private fun launchUserProfile() {
         userProfileUIModel = UserProfileUIMapper.mapToUserProfileUIModel(user)
         while (true) {
             UserProfileView.displayUserInfo(userProfileUIModel)
@@ -25,25 +29,23 @@ class UserProfileController(
                 "2" -> editHeight()
                 "3" -> editWeight()
                 "0" -> {
-                    println("정보를 저장하고 뒤로 돌아갑니다.")
                     saveUserProfile()
                     return
                 }
-
-                else -> println("잘못된 입력입니다.")
+                else -> UserProfileView.displayWrongInput()
             }
         }
     }
 
     private fun saveUserProfile() {
         val updateUser = UserProfileUIMapper.mapToUserDataModel(userProfileUIModel, user)
-        UserDataSourceImpl.updateUser(updateUser)
-        println("수정된 정보가 저장되었습니다: $updateUser")
+        updateUserProfile(updateUser)
+        UserProfileView.displaySaveUserInfo(userProfileUIModel)
     }
 
     private fun editNickName() {
         editField(
-            fieldName = "이름",
+            fieldName = Edit.NAME.fieldName,
             inputTransform = { input ->
                 if (input.isNotEmpty()) input else null
             }
@@ -54,7 +56,7 @@ class UserProfileController(
 
     private fun editHeight() {
         editField(
-            fieldName = "키",
+            fieldName = Edit.HEIGHT.fieldName,
             inputTransform = { input ->
                 if (input.isNotEmpty()) input.toFloatOrNull() else null
             }
@@ -65,7 +67,7 @@ class UserProfileController(
 
     private fun editWeight() {
         editField(
-            fieldName = "체중",
+            fieldName = Edit.WEIGHT.fieldName,
             inputTransform = { input ->
                 if (input.isNotEmpty()) input.toFloatOrNull() else null
             }
@@ -84,6 +86,6 @@ class UserProfileController(
             .let(inputTransform)
             ?.also { applyChange(it) }
             ?.let { UserProfileView.displayUpdateSuccess(fieldName) }
-            ?: UserProfileView.displayUpdateFailure(fieldName, "제대로 입력하세요.")
+            ?: UserProfileView.displayUpdateFailure(fieldName)
     }
 }

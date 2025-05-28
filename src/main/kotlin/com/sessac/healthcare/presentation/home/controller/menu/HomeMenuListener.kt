@@ -1,4 +1,4 @@
-package com.sessac.healthcare.presentation.home.controller
+package com.sessac.healthcare.presentation.home.controller.menu
 
 /**
  * 컨트롤러에서 메뉴 이벤트를 리스닝 하기 때문에
@@ -8,6 +8,7 @@ interface HomeMenuListener {
     fun onSelectRecord()
     fun onSelectGoal()
     fun onSelectUserInfo()
+    fun onSelectReport()
     fun onExit()
     fun onInvalidInput()
 }

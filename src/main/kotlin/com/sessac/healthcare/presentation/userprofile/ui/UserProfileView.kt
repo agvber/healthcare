@@ -8,8 +8,8 @@ object UserProfileView {
         println("============= 사용자 정보 =============")
         println()
         println("\t\t 사용자 이름  : ${model.nickName}")
-        println("\t\t 키         : ${model.height}cm")
-        println("\t\t 체중        : ${model.weight}kg")
+        println("\t\t 키         : %.1fcm".format(model.height))
+        println("\t\t 체중        : %.1fkg".format(model.weight))
         println()
     }
 
@@ -32,7 +32,15 @@ object UserProfileView {
         println("${field}(이)가 성공적으로 수정되었습니다.")
     }
 
-    fun displayUpdateFailure(field: String, reason: String) {
-        println("$field 수정에 실패했습니다. 이유: $reason")
+    fun displayUpdateFailure(field: String) {
+        println("$field 수정에 실패했습니다. 이유: 잘못된 입력입니다.")
+    }
+
+    fun displayWrongInput() {
+        println("잘못된 입력입니다.")
+    }
+
+    fun displaySaveUserInfo(model: UserProfileUIModel) {
+        println("정보를 저장하고 뒤로 돌아갑니다. $model")
     }
 }
