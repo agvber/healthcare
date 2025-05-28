@@ -27,7 +27,7 @@ class GoalView {
     fun askWantToInsertGoal(): String {
         println("\n목표를 기록하시겠습니까?")
         println("1. 목표 기록하기")
-        println("2. 이전 화면으로")
+        println("0. 이전 화면으로")
         println("\n==================================")
         print("선택):  ")
         return readLine() ?: ""

@@ -53,16 +53,6 @@ class FileUserDataSource(
         }
     }
 
-    fun saveData() {
-        file.bufferedWriter().use { bufferedWriter ->
-            userMap.forEach { (key, value) ->
-                val objText = fileParsingUtil.formatString(value)
-                bufferedWriter.write(objText)
-                bufferedWriter.newLine()
-            }
-        }
-    }
-
     override fun getUsers(): List<UserDataModel> {
         return userMap.values.toList()
     }
@@ -82,6 +72,16 @@ class FileUserDataSource(
 
     override fun deleteUser(id: String) {
         userMap.remove(id)
+    }
+
+    override fun saveProgramData() {
+        file.bufferedWriter().use { bufferedWriter ->
+            userMap.forEach { (_, value) ->
+                val objText = fileParsingUtil.formatString(value)
+                bufferedWriter.write(objText)
+                bufferedWriter.newLine()
+            }
+        }
     }
 
     companion object {

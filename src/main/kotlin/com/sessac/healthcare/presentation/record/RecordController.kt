@@ -1,6 +1,7 @@
 package com.sessac.healthcare.presentation.record
 
-import com.sessac.healthcare.data.datasource.impl.HistoriesDataSourceImpl
+import com.sessac.healthcare.data.datasource.HistoriesDataSource
+import com.sessac.healthcare.data.datasource.impl.FileHistoriesDataSource
 import com.sessac.healthcare.data.model.HistoryDataModel
 import com.sessac.healthcare.domain.entites.SessionManager
 import com.sessac.healthcare.presentation.common.ViewController
@@ -9,7 +10,7 @@ class RecordController : ViewController {
 
     private val sessionManager = SessionManager.getInstance()
     private val user = sessionManager.getUser()
-    private val historyDataSource = HistoriesDataSourceImpl
+    private val historyDataSource: HistoriesDataSource = FileHistoriesDataSource.getInstance()
 
     private lateinit var recordView: RecordView
     private lateinit var recordMapper: RecordMapper
@@ -34,7 +35,7 @@ class RecordController : ViewController {
     private fun handleUserInput() {
         when (recordView.askWantToRecord()) {
             "1" -> handleRecordInsertion()
-            "2" -> return // 이전 화면으로 이동
+            "0" -> return // 이전 화면으로 이동
             else -> recordView.printInvalidInputMessage()
         }
     }

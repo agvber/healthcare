@@ -24,7 +24,7 @@ class UserProfileController(
         userProfileUIModel = UserProfileUIMapper.mapToUserProfileUIModel(user)
         while (true) {
             UserProfileView.displayUserInfo(userProfileUIModel)
-            when (val menu = UserProfileView.displayEditMenu()) {
+            when (UserProfileView.displayEditMenu()) {
                 "1" -> editNickName()
                 "2" -> editHeight()
                 "3" -> editWeight()
@@ -32,6 +32,7 @@ class UserProfileController(
                     saveUserProfile()
                     return
                 }
+
                 else -> UserProfileView.displayWrongInput()
             }
         }

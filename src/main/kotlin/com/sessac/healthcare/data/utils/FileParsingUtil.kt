@@ -57,6 +57,7 @@ class FileParsingUtil {
             Short::class -> value.toShortOrNull()
             Byte::class -> value.toByteOrNull()
             Char::class -> value.singleOrNull()
+            LocalDateTime::class -> LocalDateTime.parse(value, fileDateFormat)
             else -> {
                 // Enum 처리
                 if (kClass.isSubclassOf(Enum::class)) {

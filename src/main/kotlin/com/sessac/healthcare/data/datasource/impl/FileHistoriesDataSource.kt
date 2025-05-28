@@ -55,18 +55,8 @@ class FileHistoriesDataSource(
         }
     }
 
-    fun saveData() {
-        file.bufferedWriter().use { bufferedWriter ->
-            historyMap.forEach { (key, value) ->
-                val objText = fileParsingUtil.formatString(value)
-                bufferedWriter.write(objText)
-                bufferedWriter.newLine()
-            }
-        }
-    }
-
     override fun getUserHistories(userId: String): List<HistoryDataModel> {
-        if (cacheUserHistory?.get(0)?.userId != userId) {
+        if (cacheUserHistory?.getOrNull(0)?.userId != userId) {
             cacheUserHistory = null
         }
 
@@ -89,6 +79,16 @@ class FileHistoriesDataSource(
     override fun deleteUserHistory(id: Long) {
         cacheUserHistory = null
         historyMap.remove(id)
+    }
+
+    override fun saveProgramData() {
+        file.bufferedWriter().use { bufferedWriter ->
+            historyMap.forEach { (_, value) ->
+                val objText = fileParsingUtil.formatString(value)
+                bufferedWriter.write(objText)
+                bufferedWriter.newLine()
+            }
+        }
     }
 
     companion object {

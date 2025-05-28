@@ -11,4 +11,6 @@ interface HistoriesDataSource {
     fun updateUserHistory(historyDataModel: HistoryDataModel)
 
     fun deleteUserHistory(id: Long)
+
+    fun saveProgramData()
 }

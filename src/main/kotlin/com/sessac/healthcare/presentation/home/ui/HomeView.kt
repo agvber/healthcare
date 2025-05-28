@@ -39,6 +39,7 @@ object HomeView {
         println("\t\t 일일 목표 거리 : ${model.userDailyGoalDistance} m")
         println("\t\t 일일 누적 거리 : ${model.userDailyTotalDistance} m")
         println("\t\t 총 누적 거리   : ${model.userTotalDistance} m")
+        println("\t\t 총 목표 거리   : ${model.userTotalGoalDistance}")
         println("\t\t 건강을 위한 목표 거리 : ${model.defaultGoalDistance} m")
         println("\t\t 늘어난 수명    : ${model.lifeExtension.first}시간 ${model.lifeExtension.second}분")
 
@@ -48,22 +49,7 @@ object HomeView {
         println("\n오늘 날짜: $formatDate\n")
     }
 
-    @Deprecated("사용 X")
-    fun printTreeStatus(model: HomeUIModel) {
-//        val tree = when(model.tree) {
-//            TreeGrowthStage.FULL_TREE -> model.tree.tree
-//
-//            TreeGrowthStage.MATURE_TREE -> model.tree.tree
-//
-//            TreeGrowthStage.SAPLING -> model.tree.tree
-//
-//            TreeGrowthStage.SPROUT -> model.tree.tree
-//        }
-//        println(model.tree.tree)
-//        println()
-    }
-
-    fun displayMenu(): String{
+    fun displayMenu(): String {
         println("======================================")
         println("1. 기록 화면")
         println("2. 목표 화면")

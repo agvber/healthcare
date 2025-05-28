@@ -1,7 +1,7 @@
 package com.sessac.healthcare.presentation.report
 
 data class ReportPresentationModel(
-    var consoleMainOption: Int = 0,
+    var consoleMainOption: Int = -1,
     val username: String = "",
     val bmi: Float = 0f,
     val weight: Float = 0f,

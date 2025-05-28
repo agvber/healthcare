@@ -1,5 +1,8 @@
 package com.sessac.healthcare.presentation.home.model
 
+import com.sessac.healthcare.presentation.home.model.TreeGrowthStage.*
+
+
 /**
  * @property SPROUT 새싹 1단계
  * @property SAPLING 어린 2단계
@@ -7,24 +10,31 @@ package com.sessac.healthcare.presentation.home.model
  * @property FULL_TREE 완전한 4단계
  */
 
-enum class TreeGrowthStage(val tree:String, val stage: String) {
-    SPROUT("""
+enum class TreeGrowthStage(val tree: String, val stage: String) {
+    SPROUT(
+        """
            *
            |
-        """.trimIndent(), "새싹"),
-    SAPLING("""
+        """.trimIndent(), "새싹"
+    ),
+    SAPLING(
+        """
           *
          ***
           |
-        """.trimIndent(), "어린 나무"),
-    MATURE_TREE("""
+        """.trimIndent(), "어린 나무"
+    ),
+    MATURE_TREE(
+        """
            *
           ***
          *****
         *******
            |
-        """.trimIndent(), "성숙한 나무"),
-    FULL_TREE("""
+        """.trimIndent(), "성숙한 나무"
+    ),
+    FULL_TREE(
+        """
             *
            ***
           *****
@@ -32,5 +42,6 @@ enum class TreeGrowthStage(val tree:String, val stage: String) {
         *********
        ***********
             |
-        """.trimIndent(), "세계수")
+        """.trimIndent(), "세계수"
+    )
 }

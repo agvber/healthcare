@@ -10,7 +10,7 @@ object HomeUIMapper {
         user: UserDataModel,
         calculated: HomeCalculatedModel
 
-        ) = HomeUIModel(
+    ) = HomeUIModel(
         id = user.userId,
         nickName = user.nickname,
         bmi = calculated.bmi,

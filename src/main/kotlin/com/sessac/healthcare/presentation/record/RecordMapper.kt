@@ -20,7 +20,8 @@ class RecordMapper {
             memo = history.memo
         )
     }
-        fun stringToHistoryDataModel(value: String, userId: String, lastPk: Long): HistoryDataModel {
+
+    fun stringToHistoryDataModel(value: String, userId: String, lastPk: Long): HistoryDataModel {
         val record = value.split(",")
         return HistoryDataModel(
             historyId = lastPk + 1,

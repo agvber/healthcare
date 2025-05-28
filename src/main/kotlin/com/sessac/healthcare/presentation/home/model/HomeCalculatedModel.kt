@@ -6,5 +6,5 @@ data class HomeCalculatedModel(
     var userWeeklyTotalDistance: Long,
     var userDailyTotalDistance: Long,
     var userTotalDistance: Long,
-    var lifeExtension: Pair<Int, Int> = Pair(0,0)
+    var lifeExtension: Pair<Int, Int> = Pair(0, 0)
 )

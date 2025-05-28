@@ -2,6 +2,7 @@ package com.sessac.healthcare.presentation.login
 
 import com.sessac.healthcare.common.utils.printStackTraceWithDebugMode
 import com.sessac.healthcare.domain.usecase.LoginUseCase
+import com.sessac.healthcare.domain.usecase.SaveProgramDataUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.home.controller.HomeController
 import com.sessac.healthcare.presentation.onboarding.OnboardingController
@@ -35,7 +36,10 @@ class LoginController : ViewController {
                 inputMainOption()
             }
 
-            0 -> exitProcess(0)
+            0 -> {
+                SaveProgramDataUseCase().invoke()
+                exitProcess(0)
+            }
         }
         Unit
     } catch (e: Exception) {
@@ -44,6 +48,7 @@ class LoginController : ViewController {
             loginView.printOptionSelectError()
         }
         inputMainOption()
+        Unit
     }
 
     private fun inputLoginAccountInformation(): Unit = try {

@@ -122,6 +122,6 @@ class ReportController : ViewController {
     }
 
     companion object {
-        private val mainOptionRange: IntRange = 1..5
+        private val mainOptionRange: IntRange = 0..4
     }
 }

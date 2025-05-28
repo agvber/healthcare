@@ -4,10 +4,11 @@ import com.sessac.healthcare.data.model.HistoryDataModel
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.domain.usecase.GetLoggedInUserUseCase
 import com.sessac.healthcare.domain.usecase.GetUserHistoriesUseCase
+import com.sessac.healthcare.domain.usecase.SaveProgramDataUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.common.loop
-import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuHandler
 import com.sessac.healthcare.presentation.home.HomeUIMapper
+import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuHandler
 import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuListener
 import com.sessac.healthcare.presentation.home.model.HomeCalculatedModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
@@ -37,12 +38,16 @@ class HomeController : ViewController {
         HomeView.displayUserInfo(homeUIModel)
         HomeView.displayDistanceInfo(homeUIModel)
 
-        when (val menu = HomeView.displayMenu().trim()) {
+        when (HomeView.displayMenu().trim()) {
             "1" -> menuListener.onSelectRecord()
             "2" -> menuListener.onSelectGoal()
             "3" -> menuListener.onSelectReport()
             "4" -> menuListener.onSelectUserInfo()
-            "0" -> menuListener.onExit()
+            "0" -> {
+                SaveProgramDataUseCase().invoke()
+                menuListener.onExit()
+            }
+
             else -> menuListener.onInvalidInput()
         }
     }

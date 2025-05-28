@@ -15,7 +15,7 @@ class RecordView {
     fun askWantToRecord(): String {
         println("\n==================================")
         println("1. 운동 기록하기")
-        println("2. 이전 화면으로")
+        println("0. 이전 화면으로")
         println("==================================")
         print("선택):  ")
         return readLine() ?: ""

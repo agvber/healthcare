@@ -13,4 +13,6 @@ interface UserDataSource {
     fun updateUser(userDataModel: UserDataModel)
 
     fun deleteUser(id: String)
+
+    fun saveProgramData()
 }

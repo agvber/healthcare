@@ -12,7 +12,7 @@ import com.sessac.healthcare.presentation.home.model.TreeGrowthStage
  * @property totalGoalDistance 총 목표 거리
  */
 
-data class GoalPresentationModel (
+data class GoalPresentationModel(
     val userName: String,
     val tree: TreeGrowthStage,
     val remainingBMIDistance: Long,

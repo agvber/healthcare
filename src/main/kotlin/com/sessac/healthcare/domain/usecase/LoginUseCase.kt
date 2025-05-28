@@ -1,14 +1,14 @@
 package com.sessac.healthcare.domain.usecase
 
 import com.sessac.healthcare.data.datasource.UserDataSource
-import com.sessac.healthcare.data.datasource.impl.UserDataSourceImpl
+import com.sessac.healthcare.data.datasource.impl.FileUserDataSource
 import com.sessac.healthcare.domain.entites.SessionManager
 import com.sessac.healthcare.domain.entites.UserEntity
 import com.sessac.healthcare.domain.exception.SignupRequiredException
 
 class LoginUseCase(
     private val userEntity: UserEntity = UserEntity(),
-    private val userDataSource: UserDataSource = UserDataSourceImpl,
+    private val userDataSource: UserDataSource = FileUserDataSource.getInstance(),
     private val sessionManager: SessionManager = SessionManager.getInstance()
 ) {
 

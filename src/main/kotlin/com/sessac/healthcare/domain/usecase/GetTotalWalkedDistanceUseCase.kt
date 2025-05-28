@@ -2,12 +2,12 @@ package com.sessac.healthcare.domain.usecase
 
 
 import com.sessac.healthcare.data.datasource.HistoriesDataSource
-import com.sessac.healthcare.data.datasource.impl.HistoriesDataSourceImpl
+import com.sessac.healthcare.data.datasource.impl.FileHistoriesDataSource
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.domain.entites.SessionManager
 
 class GetTotalWalkedDistanceUseCase(
-    private val historiesDataSource: HistoriesDataSource = HistoriesDataSourceImpl,
+    private val historiesDataSource: HistoriesDataSource = FileHistoriesDataSource.getInstance(),
     private val sessionManager: SessionManager = SessionManager.getInstance()
 ) {
     operator fun invoke(): Long {

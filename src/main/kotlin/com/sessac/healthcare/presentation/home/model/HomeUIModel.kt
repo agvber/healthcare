@@ -23,5 +23,5 @@ data class HomeUIModel(
     var userTotalDistance: Long,
     var height: Float,
     var weight: Float,
-    var lifeExtension: Pair<Int, Int> = Pair(0,0)
+    var lifeExtension: Pair<Int, Int> = Pair(0, 0)
 )

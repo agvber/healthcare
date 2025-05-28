@@ -17,7 +17,7 @@ class FileUserDataSourceUnitTest {
         val id = Random.nextInt(1000, 9999).toString()
         val user = DummyUserModels().get()[0].copy(userId = id)
         fileDataSource.createUser(user)
-        fileDataSource.saveData()
+        fileDataSource.saveProgramData()
 
         var lastLine = ""
         file.useLines { it.forEach { lastLine = it } }
