@@ -27,19 +27,21 @@ class OnboardingController : ViewController {
         try {
             val userInformationString: String = onboardingView.inputUserInformation()
             onboardingPresentationModel = onboardingMapper.stringToOnboardingPresentationModel(userInformationString)
-                .also {
-                    registerUserInformationUseCase(
-                        id = it.id,
-                        password = it.password,
-                        nickname = it.nickname,
-                        height = it.height,
-                        weight = it.weight
-                    )
-                }
+            registerUser()
         } catch (e: Exception) {
             e.printStackTraceWithDebugMode()
             onboardingView.printUserInformationInvalidError()
             inputUserInformation()
         }
+    }
+
+    private fun registerUser() = with(onboardingPresentationModel) {
+        registerUserInformationUseCase(
+            id = id,
+            password = password,
+            nickname = nickname,
+            height = height,
+            weight = weight
+        )
     }
 }
