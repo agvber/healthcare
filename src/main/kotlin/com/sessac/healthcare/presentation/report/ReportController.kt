@@ -28,7 +28,7 @@ class ReportController : ViewController {
     }
 
     private fun isContinue(): Boolean =
-        reportPresentationModel.consoleMainOption != 5
+        reportPresentationModel.consoleMainOption != 0
 
     private fun initProgram() {
         reportView = ReportView()
