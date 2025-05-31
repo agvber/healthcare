@@ -66,9 +66,8 @@ class FileHistoriesDataSource(
     }
 
     override fun createUserHistory(historyDataModel: HistoryDataModel) {
-        require(historyDataModel.historyId !in historyMap.keys) { "이미 존재하는 아이디입니다" }
         cacheUserHistory = null
-        historyMap[historyDataModel.historyId] = historyDataModel
+        historyMap[historyDataModel.historyId] = historyDataModel.copy(historyId = historyMap.size - 1L)
     }
 
     override fun updateUserHistory(historyDataModel: HistoryDataModel) {
