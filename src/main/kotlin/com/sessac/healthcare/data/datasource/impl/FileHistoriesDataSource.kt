@@ -67,7 +67,8 @@ class FileHistoriesDataSource(
 
     override fun createUserHistory(historyDataModel: HistoryDataModel) {
         cacheUserHistory = null
-        historyMap[historyDataModel.historyId] = historyDataModel.copy(historyId = historyMap.size - 1L)
+        val historyId: Long = historyMap.size - 1L
+        historyMap[historyId] = historyDataModel.copy(historyId = historyId)
     }
 
     override fun updateUserHistory(historyDataModel: HistoryDataModel) {
