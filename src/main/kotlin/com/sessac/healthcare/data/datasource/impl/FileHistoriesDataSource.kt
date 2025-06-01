@@ -1,10 +1,17 @@
 package com.sessac.healthcare.data.datasource.impl
 
 import com.sessac.healthcare.common.anontation.ExperimentalFeatureApi
+import com.sessac.healthcare.common.utils.printStackTraceWithDebugMode
 import com.sessac.healthcare.data.datasource.HistoriesDataSource
 import com.sessac.healthcare.data.model.HistoryDataModel
+import com.sessac.healthcare.data.utils.CoroutineModule
 import com.sessac.healthcare.data.utils.FileParsingUtil
 import com.sessac.healthcare.data.utils.LogUtils
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.io.path.createFile
 import kotlin.io.path.createParentDirectories
@@ -23,12 +30,13 @@ import kotlin.io.path.notExists
 class FileHistoriesDataSource(
     private val file: File,
     private val fileParsingUtil: FileParsingUtil,
-    private val historyMap: LinkedHashMap<Long, HistoryDataModel>
+    private val historyMap: LinkedHashMap<Long, HistoryDataModel>,
+    private val ioDispatcher: CoroutineDispatcher,
 ) : HistoriesDataSource {
 
     private var cacheUserHistory: List<HistoryDataModel>? = null
 
-    init {
+    suspend fun init() {
         checkFileStatus()
         loadData()
     }
@@ -41,7 +49,7 @@ class FileHistoriesDataSource(
     }
 
     @OptIn(ExperimentalFeatureApi::class)
-    private fun loadData() {
+    private suspend fun loadData() = withContext(ioDispatcher) {
         file.useLines { sequence ->
             sequence.forEach { userTextLine ->
                 if (!userTextLine.startsWith("<") || !userTextLine.endsWith("/>")) {
@@ -80,7 +88,7 @@ class FileHistoriesDataSource(
         historyMap.remove(id)
     }
 
-    override fun saveProgramData() {
+    override fun saveProgramData(): Flow<Result<Unit>> = flow {
         file.bufferedWriter().use { bufferedWriter ->
             historyMap.forEach { (_, value) ->
                 val objText = fileParsingUtil.formatString(value)
@@ -88,7 +96,12 @@ class FileHistoriesDataSource(
                 bufferedWriter.newLine()
             }
         }
+        emit(Result.success(Unit))
     }
+        .catch {
+            it.printStackTraceWithDebugMode()
+            emit(Result.failure(it))
+        }
 
     companion object {
         const val TAG: String = "FileHistoriesDataSource"
@@ -100,7 +113,8 @@ class FileHistoriesDataSource(
             return instance ?: FileHistoriesDataSource(
                 file = File(PATH_NAME),
                 fileParsingUtil = FileParsingUtil(),
-                historyMap = LinkedHashMap()
+                historyMap = LinkedHashMap(),
+                ioDispatcher = CoroutineModule.ioDispatcher
             ).also { instance = it }
         }
     }

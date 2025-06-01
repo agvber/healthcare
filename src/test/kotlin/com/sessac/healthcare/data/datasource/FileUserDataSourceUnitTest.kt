@@ -4,6 +4,7 @@ import com.sessac.healthcare.data.datasource.impl.FileUserDataSource
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.data.model.fake.DummyUserModels
 import com.sessac.healthcare.data.utils.FileParsingUtil
+import kotlinx.coroutines.Dispatchers
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -40,7 +41,7 @@ class FileUserDataSourceUnitTest {
             file = File("./data/test/user.txt")
             fileParsingUtil = FileParsingUtil()
             userMemoryMap = linkedMapOf()
-            fileDataSource = FileUserDataSource(file, FileParsingUtil(), userMemoryMap)
+            fileDataSource = FileUserDataSource(file, FileParsingUtil(), userMemoryMap, Dispatchers.IO)
         }
 
     }
