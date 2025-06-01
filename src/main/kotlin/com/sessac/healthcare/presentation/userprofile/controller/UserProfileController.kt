@@ -3,8 +3,7 @@ package com.sessac.healthcare.presentation.userprofile.controller
 import com.sessac.healthcare.domain.usecase.GetLoggedInUserUseCase
 import com.sessac.healthcare.domain.usecase.UpdateUserProfileUseCase
 import com.sessac.healthcare.presentation.common.ViewController
-import com.sessac.healthcare.presentation.userprofile.UserProfileUIMapper
-import com.sessac.healthcare.presentation.userprofile.editField
+import com.sessac.healthcare.presentation.userprofile.*
 import com.sessac.healthcare.presentation.userprofile.model.Edit
 import com.sessac.healthcare.presentation.userprofile.model.UserProfileUIModel
 import com.sessac.healthcare.presentation.userprofile.ui.UserProfileView
@@ -74,12 +73,5 @@ class UserProfileController(
         ) { newValue ->
             userProfileUIModel.weight = newValue
         }
-    }
-
-    companion object {
-        private const val NICKNAME_EDIT_NUMBER = "1"
-        private const val HEIGHT_EDIT_NUMBER = "2"
-        private const val WEIGHT_EDIT_NUMBER = "3"
-        private const val EXIT_NUMBER = "0"
     }
 }
