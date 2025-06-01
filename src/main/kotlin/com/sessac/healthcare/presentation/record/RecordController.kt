@@ -5,6 +5,8 @@ import com.sessac.healthcare.data.datasource.impl.FileHistoriesDataSource
 import com.sessac.healthcare.data.model.HistoryDataModel
 import com.sessac.healthcare.domain.entites.SessionManager
 import com.sessac.healthcare.presentation.common.ViewController
+import com.sessac.healthcare.presentation.record.constants.RecordControllerConstants.EXIT_NUMBER
+import com.sessac.healthcare.presentation.record.constants.RecordControllerConstants.HANDLE_INSERTION
 
 class RecordController : ViewController {
 
@@ -35,7 +37,7 @@ class RecordController : ViewController {
     private fun handleUserInput() {
         when (recordView.askWantToRecord()) {
             HANDLE_INSERTION -> handleRecordInsertion()
-            EXIT_UMBER -> return // 이전 화면으로 이동
+            EXIT_NUMBER -> return // 이전 화면으로 이동
             else -> recordView.printInvalidInputMessage()
         }
     }
@@ -53,11 +55,6 @@ class RecordController : ViewController {
         } catch (e: Exception) {
             recordView.printRecordFailureMessage(e.message ?: "알 수 없는 오류가 발생했습니다.")
         }
-    }
-
-    companion object {
-        private const val HANDLE_INSERTION = "1"
-        private const val EXIT_UMBER = "0"
     }
 
 }
