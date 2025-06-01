@@ -1,46 +1,47 @@
 package com.sessac.healthcare.presentation.userprofile.ui
 
 import com.sessac.healthcare.presentation.userprofile.model.UserProfileUIModel
+import com.sessac.healthcare.presentation.userprofile.ui.UserProfileStringResource as Res
 
 object UserProfileView {
 
     fun displayUserInfo(model: UserProfileUIModel) {
-        println("============= 사용자 정보 =============")
+        println(Res.USER_INFO_HEADER)
         println()
-        println("\t\t 사용자 이름  : ${model.nickName}")
-        println("\t\t 키         : %.1fcm".format(model.height))
-        println("\t\t 체중        : %.1fkg".format(model.weight))
+        println("\t\t ${Res.USER_NAME_LABEL}  : ${model.nickName}")
+        println("\t\t ${Res.USER_HEIGHT_LABEL} : %.1f${Res.CM_UNIT}".format(model.height))
+        println("\t\t ${Res.USER_WEIGHT_LABEL} : %.1f${Res.KG_UNIT}".format(model.weight))
         println()
     }
 
     fun displayEditMenu(): String {
-        println("======= 사용자 정보 수정 메뉴 =======")
-        println("1. 이름 수정")
-        println("2. 키 수정")
-        println("3. 체중 수정")
-        println("0. 뒤로가기")
-        print("원하는 작업 번호를 입력하세요: ")
+        println(Res.EDIT_MENU_HEADER)
+        println(Res.EDIT_MENU_NAME)
+        println(Res.EDIT_MENU_HEIGHT)
+        println(Res.EDIT_MENU_WEIGHT)
+        println(Res.EDIT_MENU_BACK)
+        print(Res.EDIT_MENU_PROMPT)
         return readln()
     }
 
     fun inputNewValue(field: String): String {
-        print("새로운 $field 입력: ")
+        print(Res.INPUT_NEW_VALUE_PROMPT.format(field))
         return readln()
     }
 
     fun displayUpdateSuccess(field: String) {
-        println("${field}(이)가 성공적으로 수정되었습니다.")
+        println(Res.UPDATE_SUCCESS.format(field))
     }
 
     fun displayUpdateFailure(field: String) {
-        println("$field 수정에 실패했습니다. 이유: 잘못된 입력입니다.")
+        println(Res.UPDATE_FAILURE.format(field))
     }
 
     fun displayWrongInput() {
-        println("잘못된 입력입니다.")
+        println(Res.WRONG_INPUT)
     }
 
     fun displaySaveUserInfo(model: UserProfileUIModel) {
-        println("정보를 저장하고 뒤로 돌아갑니다. $model")
+        println(Res.SAVE_USER_INFO.format(model))
     }
 }

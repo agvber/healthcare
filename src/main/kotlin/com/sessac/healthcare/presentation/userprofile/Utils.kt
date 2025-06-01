@@ -14,3 +14,8 @@ inline fun <T> editField(
         ?.let { UserProfileView.displayUpdateSuccess(fieldName) }
         ?: UserProfileView.displayUpdateFailure(fieldName)
 }
+
+const val NICKNAME_EDIT_NUMBER = "1"
+const val HEIGHT_EDIT_NUMBER = "2"
+const val WEIGHT_EDIT_NUMBER = "3"
+const val EXIT_NUMBER = "0"
