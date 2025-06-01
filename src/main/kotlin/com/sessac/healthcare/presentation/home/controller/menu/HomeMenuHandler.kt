@@ -1,6 +1,7 @@
 package com.sessac.healthcare.presentation.home.controller.menu
 
 import com.sessac.healthcare.presentation.goal.GoalController
+import com.sessac.healthcare.presentation.home.ui.HomeStringResource
 import com.sessac.healthcare.presentation.record.RecordController
 import com.sessac.healthcare.presentation.report.ReportController
 import com.sessac.healthcare.presentation.userprofile.controller.UserProfileController
@@ -28,6 +29,6 @@ class HomeMenuHandler : HomeMenuListener {
     }
 
     override fun onInvalidInput() {
-        println("메뉴 선택을 제대로 입력하세요.")
+        println(HomeStringResource.INCORRECT_INPUT)
     }
 }
