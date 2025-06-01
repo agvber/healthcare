@@ -10,11 +10,14 @@ import com.sessac.healthcare.presentation.common.loop
 import com.sessac.healthcare.presentation.home.HomeUIMapper
 import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuHandler
 import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuListener
-import com.sessac.healthcare.presentation.home.model.HomeCalculatedModel
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 import com.sessac.healthcare.presentation.home.ui.HomeView
-import com.sessac.healthcare.presentation.home.utils.DistanceCalculatorUtil
-import com.sessac.healthcare.presentation.home.utils.HealthUtil
+import com.sessac.healthcare.presentation.home.utils.HomeUtil.EXIT_NUMBER
+import com.sessac.healthcare.presentation.home.utils.HomeUtil.GOAL_NUMBER
+import com.sessac.healthcare.presentation.home.utils.HomeUtil.RECORD_NUMBER
+import com.sessac.healthcare.presentation.home.utils.HomeUtil.REPORT_NUMBER
+import com.sessac.healthcare.presentation.home.utils.HomeUtil.USER_INFO_NUMBER
+import com.sessac.healthcare.presentation.home.utils.HomeUtil.calculateHomeData
 
 class HomeController : ViewController {
     private val menuListener: HomeMenuListener = HomeMenuHandler()
@@ -33,10 +36,13 @@ class HomeController : ViewController {
         user = getLoggedInUser()
         histories = getUserHistories(user.userId)
 
-        homeUIModel = HomeUIMapper.mapToHomeUIModel(user, calculateHomeData())
-        HomeView.displayHomeHeader()
-        HomeView.displayUserInfo(homeUIModel)
-        HomeView.displayDistanceInfo(homeUIModel)
+        homeUIModel = HomeUIMapper.mapToHomeUIModel(user, calculateHomeData(user, histories))
+
+        HomeView.run {
+            displayHomeHeader()
+            displayUserInfo(homeUIModel)
+            displayDistanceInfo(homeUIModel)
+        } // with은 다른 표준 함수랑 일관성이 없기 때문에 run을 사용
 
         when (HomeView.displayMenu().trim()) {
             RECORD_NUMBER -> menuListener.onSelectRecord()
@@ -50,33 +56,5 @@ class HomeController : ViewController {
 
             else -> menuListener.onInvalidInput()
         }
-    }
-
-    private fun calculateHomeData(): HomeCalculatedModel {
-        val bmi = HealthUtil.calculateBMI(user.height, user.weight)
-        val defaultGoalDistance = DistanceCalculatorUtil.calculateTotalGoalDistance(user.height, user.weight)
-        val userWeeklyTotalDistance = DistanceCalculatorUtil.calculateWeeklyTotalDistance(histories)
-        val userDailyTotalDistance = DistanceCalculatorUtil.calculateDailyTotalDistance(histories)
-        val userTotalDistance = DistanceCalculatorUtil.calculateTotalDistance(histories)
-        val lifeExtension = HealthUtil.calculateLifeExtension(userTotalDistance)
-
-        return HomeCalculatedModel(
-            bmi = bmi,
-            defaultGoalDistance = defaultGoalDistance,
-            userWeeklyTotalDistance = userWeeklyTotalDistance,
-            userDailyTotalDistance = userDailyTotalDistance,
-            lifeExtension = lifeExtension,
-            userTotalDistance = userTotalDistance
-        )
-    }
-
-    companion object {
-        private const val RECORD_NUMBER = "1"
-        private const val GOAL_NUMBER = "2"
-        private const val REPORT_NUMBER = "3"
-        private const val USER_INFO_NUMBER = "4"
-        private const val EXIT_NUMBER = "0"
-
-
     }
 }
