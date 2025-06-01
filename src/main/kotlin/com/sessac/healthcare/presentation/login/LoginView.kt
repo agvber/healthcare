@@ -1,11 +1,13 @@
 package com.sessac.healthcare.presentation.login
 
+import com.sessac.healthcare.presentation.common.ViewScannerConsole
+
 object LoginView {
 
     fun inputMainOption(): String? {
         println(StringResource.WELCOME_MESSAGE.trimIndent())
         print(StringResource.INPUT_PROMPT)
-        return readLine()
+        return ViewScannerConsole.fetchReadLine()
     }
 
     fun printOptionSelectError() {
@@ -14,12 +16,12 @@ object LoginView {
 
     fun inputId(): String? {
         print(StringResource.ID_PROMPT)
-        return readLine()
+        return ViewScannerConsole.fetchReadLine()
     }
 
     fun inputPassword(): String? {
         print(StringResource.PASSWORD_PROMPT)
-        return readLine()
+        return ViewScannerConsole.fetchReadLine()
     }
 
     fun printLoginErrorMessage() {
