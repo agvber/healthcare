@@ -1,5 +1,7 @@
 package com.sessac.healthcare.presentation.onboarding
 
+import com.sessac.healthcare.presentation.common.ViewScannerConsole
+
 object OnboardingView {
 
     fun printWelcomeMessage() {
@@ -9,7 +11,7 @@ object OnboardingView {
     fun inputUserInformation(): String {
         println(StringResource.INPUT_GUIDE.trimIndent())
         print(StringResource.INPUT_PROMPT)
-        return readLine() ?: ""
+        return ViewScannerConsole.fetchReadLine()
     }
 
     fun printUserInformationInvalidError() {
