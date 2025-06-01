@@ -33,11 +33,10 @@ class FileHistoriesDataSource(
         loadData()
     }
 
-    private fun checkFileStatus() {
-        val path = file.toPath()
-        if (path.notExists()) {
-            path.createParentDirectories()
-            path.createFile()
+    private fun checkFileStatus() = with(file.toPath()) {
+        if (notExists()) {
+            createParentDirectories()
+            createFile()
         }
     }
 
