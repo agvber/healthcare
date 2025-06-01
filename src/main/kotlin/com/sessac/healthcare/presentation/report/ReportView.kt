@@ -1,15 +1,17 @@
 package com.sessac.healthcare.presentation.report
 
+import com.sessac.healthcare.presentation.common.ViewScannerConsole
+
 object ReportView {
 
     fun inputOption(): Int? {
         print(StringResource.REPORT_MENU.trimIndent())
-        return readLine()?.trim()?.toIntOrNull()
+        return ViewScannerConsole.fetchReadLine().trim().toIntOrNull()
     }
 
     fun inputRetryOption(): Int? {
         print(StringResource.INVALID_OPTION)
-        return readLine()?.trim()?.toIntOrNull()
+        return ViewScannerConsole.fetchReadLine().trim().toIntOrNull()
     }
 
     fun printUserTotalDistanceWalked(name: String, meter: Float) {
