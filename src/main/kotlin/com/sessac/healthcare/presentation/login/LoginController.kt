@@ -59,11 +59,11 @@ class LoginController : ViewController {
         throw IllegalArgumentException(LOGIN_ERROR_MESSAGE)
     }
 
-    companion object {
-        private const val LOGIN_ERROR_MESSAGE: String = "LoginFormatError"
+    private companion object LoginUtils {
+        const val LOGIN_ERROR_MESSAGE: String = "LoginFormatError"
 
-        private const val LOGIN_NUMBER = 1
-        private const val ONBOARDING_NUMBER = 2
-        private const val EXIT_NUMBER = 0
+        const val LOGIN_NUMBER = 1
+        const val ONBOARDING_NUMBER = 2
+        const val EXIT_NUMBER = 0
     }
 }
