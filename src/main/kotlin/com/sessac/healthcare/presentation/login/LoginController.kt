@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 
 class LoginController : ViewController {
 
-    private lateinit var loginView: LoginView
     private lateinit var loginUseCase: LoginUseCase
 
     private val onboardingController by lazy(LazyThreadSafetyMode.NONE) {
@@ -23,12 +22,11 @@ class LoginController : ViewController {
     }
 
     private fun initProgram() {
-        loginView = LoginView
         loginUseCase = LoginUseCase()
     }
 
-    private fun inputMainOption(): Unit = try {
-        val selectedOption = loginView.inputMainOption()?.trim()?.toIntOrNull() ?: throw IllegalArgumentException()
+    private fun inputMainOption(): Result<Unit> = runCatching {
+        val selectedOption = LoginView.inputMainOption()?.trim()?.toIntOrNull() ?: throw IllegalArgumentException()
         when (selectedOption) {
             LOGIN_NUMBER -> inputLoginAccountInformation()
             ONBOARDING_NUMBER -> {
@@ -41,32 +39,31 @@ class LoginController : ViewController {
                 exitProcess(0)
             }
         }
-        Unit
-    } catch (e: Exception) {
-        e.printStackTraceWithDebugMode()
-        if (e.message != LOGIN_ERROR_MESSAGE) {
-            loginView.printOptionSelectError()
-        }
-        inputMainOption()
-        Unit
     }
+        .onFailure { e ->
+            e.printStackTraceWithDebugMode()
+            if (e.message != LOGIN_ERROR_MESSAGE) {
+                LoginView.printOptionSelectError()
+            }
+            inputMainOption()
+        }
 
     private fun inputLoginAccountInformation(): Unit = try {
-        val id: String = loginView.inputId() ?: throw IllegalArgumentException()
-        val password: String = loginView.inputPassword() ?: throw IllegalArgumentException()
+        val id: String = LoginView.inputId() ?: throw IllegalArgumentException()
+        val password: String = LoginView.inputPassword() ?: throw IllegalArgumentException()
         loginUseCase(id, password)
         HomeController().run()
     } catch (e: Exception) {
         e.printStackTraceWithDebugMode()
-        loginView.printLoginErrorMessage()
+        LoginView.printLoginErrorMessage()
         throw IllegalArgumentException(LOGIN_ERROR_MESSAGE)
     }
 
-    companion object {
-        private const val LOGIN_ERROR_MESSAGE: String = "LoginFormatError"
+    private companion object LoginUtils {
+        const val LOGIN_ERROR_MESSAGE: String = "LoginFormatError"
 
-        private const val LOGIN_NUMBER = 1
-        private const val ONBOARDING_NUMBER = 2
-        private const val EXIT_NUMBER = 0
+        const val LOGIN_NUMBER = 1
+        const val ONBOARDING_NUMBER = 2
+        const val EXIT_NUMBER = 0
     }
 }
