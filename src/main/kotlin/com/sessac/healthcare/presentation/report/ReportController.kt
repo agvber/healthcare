@@ -9,7 +9,6 @@ import com.sessac.healthcare.presentation.common.loop
 
 class ReportController : ViewController {
 
-    private lateinit var reportView: ReportView
     private lateinit var reportPresentationModel: ReportPresentationModel
 
     private lateinit var getTotalWalkedDistanceUseCase: GetTotalWalkedDistanceUseCase
@@ -18,7 +17,6 @@ class ReportController : ViewController {
     private lateinit var getUserInformationUseCase: GetUserInformationUseCase
 
     override fun run() {
-        initProgram()
         initUseCase()
         loadInitData()
         loop({ isContinue() }) {
@@ -29,10 +27,6 @@ class ReportController : ViewController {
 
     private fun isContinue(): Boolean =
         reportPresentationModel.consoleMainOption != 0
-
-    private fun initProgram() {
-        reportView = ReportView
-    }
 
     private fun initUseCase() {
         getTotalWalkedDistanceUseCase = GetTotalWalkedDistanceUseCase()
@@ -51,7 +45,7 @@ class ReportController : ViewController {
     }
 
     private fun inputOptionNumber() {
-        val option: Int? = reportView.inputOption()
+        val option: Int? = ReportView.inputOption()
 
         if (option != null && option in mainOptionRange) {
             reportPresentationModel.consoleMainOption = option
@@ -61,7 +55,7 @@ class ReportController : ViewController {
     }
 
     private fun inputRetryOptionNumber() {
-        val option: Int? = reportView.inputRetryOption()
+        val option: Int? = ReportView.inputRetryOption()
 
         if (option == null || option !in mainOptionRange) {
             inputRetryOptionNumber()
@@ -84,7 +78,7 @@ class ReportController : ViewController {
             totalWalkedDistance = getTotalWalkedDistanceUseCase().toFloat()
         }
 
-        reportView.printUserTotalDistanceWalked(
+        ReportView.printUserTotalDistanceWalked(
             name = username,
             meter = totalWalkedDistance
         )
@@ -95,7 +89,7 @@ class ReportController : ViewController {
             cardonReduction = getUserTotalCarbonReductionUseCase().toFloat()
         }
 
-        reportView.printUserCarbonReduction(
+        ReportView.printUserCarbonReduction(
             name = username,
             reductionKg = cardonReduction
         )
@@ -106,14 +100,14 @@ class ReportController : ViewController {
             oneOfWeekStepCount = getWeekStepCountUseCase()
         }
 
-        reportView.printUserSevenWeekStepCount(
+        ReportView.printUserSevenWeekStepCount(
             name = username,
             stepCount = oneOfWeekStepCount
         )
     }
 
     private fun processUserHealthInformation() = with(reportPresentationModel) {
-        reportView.printUserHealthInformation(
+        ReportView.printUserHealthInformation(
             name = username,
             bmi = bmi,
             height = height,
