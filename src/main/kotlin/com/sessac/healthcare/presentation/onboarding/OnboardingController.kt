@@ -7,7 +7,6 @@ import com.sessac.healthcare.presentation.common.ViewController
 
 class OnboardingController : ViewController {
 
-    private lateinit var onboardingMapper: OnboardingMapper
     private lateinit var onboardingPresentationModel: OnboardingPresentationModel
     private lateinit var registerUserInformationUseCase: RegisterUserInformationUseCase
 
@@ -17,7 +16,6 @@ class OnboardingController : ViewController {
     }
 
     private fun initProgram() {
-        onboardingMapper = OnboardingMapper()
         registerUserInformationUseCase = RegisterUserInformationUseCase()
         OnboardingView.printWelcomeMessage()
     }
@@ -25,7 +23,7 @@ class OnboardingController : ViewController {
     private fun inputUserInformation() {
         try {
             val userInformationString: String = OnboardingView.inputUserInformation()
-            onboardingPresentationModel = onboardingMapper.stringToOnboardingPresentationModel(userInformationString)
+            onboardingPresentationModel = OnboardingMapper.stringToOnboardingPresentationModel(userInformationString)
             registerUser()
         } catch (e: Exception) {
             e.printStackTraceWithDebugMode()

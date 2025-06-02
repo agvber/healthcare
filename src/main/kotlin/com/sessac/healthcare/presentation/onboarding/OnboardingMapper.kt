@@ -1,6 +1,6 @@
 package com.sessac.healthcare.presentation.onboarding
 
-class OnboardingMapper {
+object OnboardingMapper {
 
     fun stringToOnboardingPresentationModel(value: String): OnboardingPresentationModel {
         val splitUserInfo = value.split(",")
