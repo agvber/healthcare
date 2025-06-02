@@ -121,12 +121,12 @@ class ReportController : ViewController {
         )
     }
 
-    companion object {
-        private val mainOptionRange: IntRange = 0..4
+    private companion object ReportUtils {
+        val mainOptionRange: IntRange = 0..4
 
-        private const val WALKED_DISTANCE_NUMBER = 1
-        private const val CARBON_REDUCTION_NUMBER = 2
-        private const val SEVEN_WEEK_STEP_COUNT_NUMBER = 3
-        private const val HEALTH_INFORMATION_NUMBER = 4
+        const val WALKED_DISTANCE_NUMBER = 1
+        const val CARBON_REDUCTION_NUMBER = 2
+        const val SEVEN_WEEK_STEP_COUNT_NUMBER = 3
+        const val HEALTH_INFORMATION_NUMBER = 4
     }
 }
