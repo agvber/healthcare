@@ -7,8 +7,6 @@ import com.sessac.healthcare.presentation.common.ViewController
 
 class OnboardingController : ViewController {
 
-    private lateinit var onboardingView: OnboardingView
-    private lateinit var onboardingMapper: OnboardingMapper
     private lateinit var onboardingPresentationModel: OnboardingPresentationModel
     private lateinit var registerUserInformationUseCase: RegisterUserInformationUseCase
 
@@ -18,27 +16,25 @@ class OnboardingController : ViewController {
     }
 
     private fun initProgram() {
-        onboardingView = OnboardingView
-        onboardingMapper = OnboardingMapper()
         registerUserInformationUseCase = RegisterUserInformationUseCase()
-        onboardingView.printWelcomeMessage()
+        OnboardingView.printWelcomeMessage()
     }
 
-    private fun inputUserInformation() {
-        try {
-            val userInformationString: String = onboardingView.inputUserInformation()
-            onboardingPresentationModel = onboardingMapper.stringToOnboardingPresentationModel(userInformationString)
-            registerUser()
-        } catch (e: Exception) {
+    private fun inputUserInformation(): Result<Unit> = runCatching {
+        val userInformationString: String = OnboardingView.inputUserInformation()
+        onboardingPresentationModel = OnboardingMapper.stringToOnboardingPresentationModel(userInformationString)
+        registerUser()
+    }
+        .onFailure { e ->
             e.printStackTraceWithDebugMode()
             if (e is IdExistException) {
-                onboardingView.printIdExistError()
+                OnboardingView.printIdExistError()
             } else {
-                onboardingView.printUserInformationInvalidError()
+                OnboardingView.printUserInformationInvalidError()
             }
             inputUserInformation()
         }
-    }
+
 
     private fun registerUser() = with(onboardingPresentationModel) {
         registerUserInformationUseCase(
