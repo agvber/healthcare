@@ -9,8 +9,7 @@ import com.sessac.healthcare.presentation.onboarding.OnboardingController
 import kotlin.system.exitProcess
 
 class LoginController : ViewController {
-
-    private lateinit var loginView: LoginView
+    
     private lateinit var loginUseCase: LoginUseCase
 
     private val onboardingController by lazy(LazyThreadSafetyMode.NONE) {
@@ -23,12 +22,11 @@ class LoginController : ViewController {
     }
 
     private fun initProgram() {
-        loginView = LoginView
         loginUseCase = LoginUseCase()
     }
 
     private fun inputMainOption(): Unit = try {
-        val selectedOption = loginView.inputMainOption()?.trim()?.toIntOrNull() ?: throw IllegalArgumentException()
+        val selectedOption = LoginView.inputMainOption()?.trim()?.toIntOrNull() ?: throw IllegalArgumentException()
         when (selectedOption) {
             LOGIN_NUMBER -> inputLoginAccountInformation()
             ONBOARDING_NUMBER -> {
@@ -45,20 +43,20 @@ class LoginController : ViewController {
     } catch (e: Exception) {
         e.printStackTraceWithDebugMode()
         if (e.message != LOGIN_ERROR_MESSAGE) {
-            loginView.printOptionSelectError()
+            LoginView.printOptionSelectError()
         }
         inputMainOption()
         Unit
     }
 
     private fun inputLoginAccountInformation(): Unit = try {
-        val id: String = loginView.inputId() ?: throw IllegalArgumentException()
-        val password: String = loginView.inputPassword() ?: throw IllegalArgumentException()
+        val id: String = LoginView.inputId() ?: throw IllegalArgumentException()
+        val password: String = LoginView.inputPassword() ?: throw IllegalArgumentException()
         loginUseCase(id, password)
         HomeController().run()
     } catch (e: Exception) {
         e.printStackTraceWithDebugMode()
-        loginView.printLoginErrorMessage()
+        LoginView.printLoginErrorMessage()
         throw IllegalArgumentException(LOGIN_ERROR_MESSAGE)
     }
 
