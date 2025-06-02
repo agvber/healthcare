@@ -7,10 +7,10 @@ import java.time.LocalDate
 import java.time.temporal.TemporalAdjusters
 
 object DistanceCalculatorUtil {
+    private val today: LocalDate = LocalDate.now()
 
     // 현재 주 계산
     private fun getCurrentWeekPeriod(): Pair<LocalDate, LocalDate> {
-        val today = LocalDate.now()
         val weekStart =
             today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)) // today를 기준으로 이전부터 가장 가까운 월요일을 찾음 5-25(일요일)이면, 05-19가 반환됨.
         val weekEnd = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)) // today를 기준으로 이후부터 가장 가까운 일요일을 찾음
@@ -37,7 +37,6 @@ object DistanceCalculatorUtil {
      * 유저의 일일 누적 거리 계산
      */
     fun calculateDailyTotalDistance(histories: List<HistoryDataModel>): Long {
-        val today = LocalDate.now()
         return histories.filter {
             it.startDateTime.toLocalDate() == today
         }.sumOf { it.distanceWalked }

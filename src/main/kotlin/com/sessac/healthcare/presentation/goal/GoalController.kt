@@ -6,6 +6,11 @@ import com.sessac.healthcare.domain.usecase.GetLoggedInUserUseCase
 import com.sessac.healthcare.domain.usecase.GetUserHistoriesUseCase
 import com.sessac.healthcare.domain.usecase.UpdateUserProfileUseCase
 import com.sessac.healthcare.presentation.common.ViewController
+import com.sessac.healthcare.presentation.goal.constants.GoalControllerConstants.INSERT_GOAL_NUMBER
+import com.sessac.healthcare.presentation.goal.constants.GoalControllerConstants.BACK_NUMBER
+import com.sessac.healthcare.presentation.goal.constants.GoalControllerConstants.DAILY_GOAL_DISTANCE_NUMBER
+import com.sessac.healthcare.presentation.goal.constants.GoalControllerConstants.TOTAL_GOAL_DISTANCE_NUMBER
+import com.sessac.healthcare.presentation.goal.constants.GoalControllerConstants.WEEKLY_GOAL_DISTANCE_NUMBER
 
 class GoalController : ViewController {
     private lateinit var goalView: GoalView
@@ -76,13 +81,4 @@ class GoalController : ViewController {
         goalView.printGoal(updatedUser)
     }
 
-    companion object {
-        private const val INSERT_GOAL_NUMBER = "1"
-        private const val BACK_NUMBER = "0"
-
-        private const val TOTAL_GOAL_DISTANCE_NUMBER = "1"
-        private const val WEEKLY_GOAL_DISTANCE_NUMBER = "2"
-        private const val DAILY_GOAL_DISTANCE_NUMBER = "3"
-
-    }
 }
