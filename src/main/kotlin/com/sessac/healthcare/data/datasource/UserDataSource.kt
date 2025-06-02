@@ -1,6 +1,7 @@
 package com.sessac.healthcare.data.datasource
 
 import com.sessac.healthcare.data.model.UserDataModel
+import kotlinx.coroutines.flow.Flow
 
 interface UserDataSource {
 
@@ -14,5 +15,5 @@ interface UserDataSource {
 
     fun deleteUser(id: String)
 
-    fun saveProgramData()
+    fun saveProgramData(): Flow<Result<Unit>>
 }

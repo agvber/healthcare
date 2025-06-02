@@ -1,10 +1,17 @@
 package com.sessac.healthcare.data.datasource.impl
 
 import com.sessac.healthcare.common.anontation.ExperimentalFeatureApi
+import com.sessac.healthcare.common.utils.printStackTraceWithDebugMode
 import com.sessac.healthcare.data.datasource.UserDataSource
 import com.sessac.healthcare.data.model.UserDataModel
+import com.sessac.healthcare.data.utils.CoroutineModule
 import com.sessac.healthcare.data.utils.FileParsingUtil
 import com.sessac.healthcare.data.utils.LogUtils
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.io.path.createFile
 import kotlin.io.path.createParentDirectories
@@ -23,24 +30,24 @@ import kotlin.io.path.notExists
 class FileUserDataSource(
     private val file: File,
     private val fileParsingUtil: FileParsingUtil,
-    private val userMap: LinkedHashMap<String, UserDataModel>
+    private val userMap: LinkedHashMap<String, UserDataModel>,
+    private val ioDispatcher: CoroutineDispatcher
 ) : UserDataSource {
 
-    init {
+    suspend fun init() {
         checkFileStatus()
         loadData()
     }
 
-    private fun checkFileStatus() {
-        val path = file.toPath()
-        if (path.notExists()) {
-            path.createParentDirectories()
-            path.createFile()
+    private fun checkFileStatus() = with(file.toPath()) {
+        if (notExists()) {
+            createParentDirectories()
+            createFile()
         }
     }
 
     @OptIn(ExperimentalFeatureApi::class)
-    private fun loadData() {
+    private suspend fun loadData() = withContext(ioDispatcher) {
         file.useLines { sequence ->
             sequence.forEach { userTextLine ->
                 if (!userTextLine.startsWith("<") || !userTextLine.endsWith("/>")) {
@@ -74,7 +81,7 @@ class FileUserDataSource(
         userMap.remove(id)
     }
 
-    override fun saveProgramData() {
+    override fun saveProgramData(): Flow<Result<Unit>> = flow {
         file.bufferedWriter().use { bufferedWriter ->
             userMap.forEach { (_, value) ->
                 val objText = fileParsingUtil.formatString(value)
@@ -82,7 +89,12 @@ class FileUserDataSource(
                 bufferedWriter.newLine()
             }
         }
+        emit(Result.success(Unit))
     }
+        .catch {
+            it.printStackTraceWithDebugMode()
+            emit(Result.failure(it))
+        }
 
     companion object {
         const val TAG: String = "FileUserDataSource"
@@ -94,7 +106,8 @@ class FileUserDataSource(
             return instance ?: FileUserDataSource(
                 file = File(PATH_NAME),
                 fileParsingUtil = FileParsingUtil(),
-                userMap = LinkedHashMap()
+                userMap = LinkedHashMap(),
+                ioDispatcher = CoroutineModule.ioDispatcher
             ).also { instance = it }
         }
     }

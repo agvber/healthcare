@@ -2,6 +2,7 @@ package com.sessac.healthcare.data.datasource.impl
 
 import com.sessac.healthcare.data.datasource.HistoriesDataSource
 import com.sessac.healthcare.data.model.HistoryDataModel
+import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 
 object HistoriesDataSourceImpl : HistoriesDataSource {
@@ -26,7 +27,7 @@ object HistoriesDataSourceImpl : HistoriesDataSource {
         dummyData.removeIf { it.historyId == id }
     }
 
-    override fun saveProgramData() {
+    override fun saveProgramData(): Flow<Result<Unit>> {
         TODO("Not yet implemented")
     }
 

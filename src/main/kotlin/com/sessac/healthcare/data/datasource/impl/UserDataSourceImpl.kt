@@ -3,6 +3,7 @@ package com.sessac.healthcare.data.datasource.impl
 import com.sessac.healthcare.data.datasource.UserDataSource
 import com.sessac.healthcare.data.model.UserDataModel
 import com.sessac.healthcare.data.model.fake.DummyUserModels
+import kotlinx.coroutines.flow.Flow
 
 
 object UserDataSourceImpl : UserDataSource {
@@ -27,7 +28,7 @@ object UserDataSourceImpl : UserDataSource {
         TODO("Not yet implemented")
     }
 
-    override fun saveProgramData() {
+    override fun saveProgramData(): Flow<Result<Unit>> {
         TODO("Not yet implemented")
     }
 }

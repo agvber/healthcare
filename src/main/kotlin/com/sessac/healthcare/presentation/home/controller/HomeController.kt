@@ -12,6 +12,10 @@ import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuHandler
 import com.sessac.healthcare.presentation.home.controller.menu.HomeMenuListener
 import com.sessac.healthcare.presentation.home.model.HomeUIModel
 import com.sessac.healthcare.presentation.home.ui.HomeView
+import com.sessac.healthcare.presentation.home.utils.DistanceCalculatorUtil
+import com.sessac.healthcare.presentation.home.utils.HealthUtil
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import com.sessac.healthcare.presentation.home.utils.HomeUtil.EXIT_NUMBER
 import com.sessac.healthcare.presentation.home.utils.HomeUtil.GOAL_NUMBER
 import com.sessac.healthcare.presentation.home.utils.HomeUtil.RECORD_NUMBER
@@ -50,7 +54,10 @@ class HomeController : ViewController {
             REPORT_NUMBER -> menuListener.onSelectReport()
             USER_INFO_NUMBER -> menuListener.onSelectUserInfo()
             EXIT_NUMBER -> {
-                SaveProgramDataUseCase().invoke()
+                runBlocking { SaveProgramDataUseCase().invoke().first() }
+                    .onFailure {
+                        // 사용자에거 오류 표시
+                    }
                 menuListener.onExit()
             }
 

@@ -1,6 +1,7 @@
 package com.sessac.healthcare.data.datasource
 
 import com.sessac.healthcare.data.model.HistoryDataModel
+import kotlinx.coroutines.flow.Flow
 
 interface HistoriesDataSource {
 
@@ -12,5 +13,5 @@ interface HistoriesDataSource {
 
     fun deleteUserHistory(id: Long)
 
-    fun saveProgramData()
+    fun saveProgramData(): Flow<Result<Unit>>
 }

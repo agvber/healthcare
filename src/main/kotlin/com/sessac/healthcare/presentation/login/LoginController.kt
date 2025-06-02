@@ -6,6 +6,8 @@ import com.sessac.healthcare.domain.usecase.SaveProgramDataUseCase
 import com.sessac.healthcare.presentation.common.ViewController
 import com.sessac.healthcare.presentation.home.controller.HomeController
 import com.sessac.healthcare.presentation.onboarding.OnboardingController
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import kotlin.system.exitProcess
 
 class LoginController : ViewController {
@@ -35,7 +37,10 @@ class LoginController : ViewController {
             }
 
             EXIT_NUMBER -> {
-                SaveProgramDataUseCase().invoke()
+                runBlocking { SaveProgramDataUseCase().invoke().first() }
+                    .onFailure {
+                        // 사용자에게 저장 오류 표시
+                    }
                 exitProcess(0)
             }
         }
