@@ -20,12 +20,12 @@ class OnboardingController : ViewController {
         OnboardingView.printWelcomeMessage()
     }
 
-    private fun inputUserInformation() {
-        try {
-            val userInformationString: String = OnboardingView.inputUserInformation()
-            onboardingPresentationModel = OnboardingMapper.stringToOnboardingPresentationModel(userInformationString)
-            registerUser()
-        } catch (e: Exception) {
+    private fun inputUserInformation(): Result<Unit> = runCatching {
+        val userInformationString: String = OnboardingView.inputUserInformation()
+        onboardingPresentationModel = OnboardingMapper.stringToOnboardingPresentationModel(userInformationString)
+        registerUser()
+    }
+        .onFailure { e ->
             e.printStackTraceWithDebugMode()
             if (e is IdExistException) {
                 OnboardingView.printIdExistError()
@@ -34,7 +34,7 @@ class OnboardingController : ViewController {
             }
             inputUserInformation()
         }
-    }
+
 
     private fun registerUser() = with(onboardingPresentationModel) {
         registerUserInformationUseCase(
